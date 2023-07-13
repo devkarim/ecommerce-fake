@@ -27,7 +27,7 @@ const Appbar: React.FC<AppbarProps> = ({}) => {
       <div className="flex space-x-16 text-lg">
         <div className="dropdown">
           <label tabIndex={0}>
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center space-x-1 cursor-pointer">
               <p>Shop</p>
               <FaArrowDown />
             </div>
