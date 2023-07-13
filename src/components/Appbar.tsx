@@ -23,9 +23,27 @@ const Appbar: React.FC<AppbarProps> = ({}) => {
         <Logo />
       </Link>
       <div className="flex space-x-16 text-lg">
-        <div className="flex items-center space-x-1">
-          <p>Shop</p>
-          <FaArrowDown />
+        <div className="dropdown">
+          <label tabIndex={0}>
+            <div className="flex items-center space-x-1">
+              <p>Shop</p>
+              <FaArrowDown />
+            </div>
+          </label>
+          <ul
+            tabIndex={0}
+            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            <li>
+              <Link href="/shop/men">Men</Link>
+            </li>
+            <li>
+              <Link href="/shop/women">Women</Link>
+            </li>
+            <li>
+              <Link href="/shop/kids">Kids</Link>
+            </li>
+          </ul>
         </div>
         <Link href="/featured">Featured</Link>
         <Link href="/new">New arrivals</Link>
