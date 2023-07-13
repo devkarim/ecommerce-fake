@@ -9,10 +9,12 @@ interface AppbarProps {
 
 const Cart: React.FC<any> = ({}) => {
   return (
-    <div className="bg-black text-white rounded-full px-4 py-2 flex items-center justify-center space-x-4">
-      <FaCartShopping />
-      <p>0</p>
-    </div>
+    <Link href="/cart">
+      <div className="bg-black text-white rounded-full px-4 py-2 flex items-center justify-center space-x-4">
+        <FaCartShopping />
+        <p>0</p>
+      </div>
+    </Link>
   );
 };
 
