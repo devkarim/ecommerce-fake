@@ -7,7 +7,7 @@ interface AppbarProps {
   children?: React.ReactNode;
 }
 
-const CartAdd: React.FC<any> = ({}) => {
+const Cart: React.FC<any> = ({}) => {
   return (
     <div className="bg-black text-white rounded-full px-4 py-2 flex items-center justify-center space-x-4">
       <FaCartShopping />
@@ -30,7 +30,7 @@ const Appbar: React.FC<AppbarProps> = ({}) => {
         <Link href="/featured">Featured</Link>
         <Link href="/new">New arrivals</Link>
       </div>
-      <CartAdd />
+      <Cart />
     </div>
   );
 };
