@@ -17,11 +17,11 @@ const ExploreCard: React.FC<ExploreCardProps> = ({}) => {
         />
       </figure>
       <div className="card-body items-center self-center">
-        <p className="text-2xl md:text-5xl font-bold text-center">
+        <p className="text-3xl lg:text-5xl font-bold text-center">
           Explore your style with our <br />
-          newest collection
+          newest collection!
         </p>
-        <div className="card-actions mt-20">
+        <div className="card-actions mt-12 sm:mt-16">
           <button className="btn btn-secondary text-lg font-normal">
             Shop now <FaArrowRight />{' '}
           </button>
