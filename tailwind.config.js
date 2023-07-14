@@ -5,6 +5,14 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  theme: {
+    extend: {
+      maxWidth: {
+        '8xl': '90rem',
+        '9xl': '100rem',
+      },
+    },
+  },
   daisyui: {
     themes: [
       {

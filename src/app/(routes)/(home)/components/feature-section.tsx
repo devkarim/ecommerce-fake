@@ -36,7 +36,7 @@ const features: Feature[] = [
 const FeatureSection: React.FC<FeatureSectionProps> = ({}) => {
   return (
     <div>
-      <h1 className="text-4xl font-bold">
+      <h1 className="text-3xl lg:text-4xl font-bold">
         Discover, shop, and indulge <br />
         with ease
       </h1>

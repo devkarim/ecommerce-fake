@@ -2,6 +2,7 @@ import { FaCartShopping, FaArrowDown } from 'react-icons/fa6';
 import Link from 'next/link';
 
 import Logo from '@/components/ui/logo';
+import Container from '@/components/ui/container';
 
 interface AppbarProps {
   children?: React.ReactNode;
@@ -20,11 +21,11 @@ const Cart: React.FC<any> = ({}) => {
 
 const Appbar: React.FC<AppbarProps> = ({}) => {
   return (
-    <div className="py-4 lg:py-12 px-8 lg:px-24 flex justify-between items-center">
+    <Container className="py-4 flex justify-between items-center">
       <Link href="/">
         <Logo />
       </Link>
-      <div className="flex space-x-4 lg:space-x-16 text-sm lg:text-lg">
+      <div className="flex space-x-4 sm:space-x-14 text-sm font-medium">
         <div className="dropdown">
           <label tabIndex={0}>
             <div className="flex items-center space-x-1 cursor-pointer">
@@ -51,7 +52,7 @@ const Appbar: React.FC<AppbarProps> = ({}) => {
         <Link href="/new">New arrivals</Link>
       </div>
       <Cart />
-    </div>
+    </Container>
   );
 };
 

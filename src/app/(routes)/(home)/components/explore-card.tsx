@@ -13,12 +13,11 @@ const ExploreCard: React.FC<ExploreCardProps> = ({}) => {
           src="/img/home-card.png"
           alt="Shoes"
           fill
-          objectFit="cover"
           className="rounded-2xl object-[60%_40%] sm:object-[100%_40%] contrast-100 -hue-rotate-15"
         />
       </figure>
       <div className="card-body items-center self-center">
-        <p className="text-5xl font-bold text-center">
+        <p className="text-2xl md:text-5xl font-bold text-center">
           Explore your style with our <br />
           newest collection
         </p>
