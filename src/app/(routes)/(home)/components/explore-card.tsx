@@ -18,7 +18,7 @@ const ExploreCard: React.FC<ExploreCardProps> = ({}) => {
         />
       </figure>
       <div className="card-body items-center self-center">
-        <p className="text-4xl font-bold text-center">
+        <p className="text-5xl font-bold text-center">
           Explore your style with our <br />
           newest collection
         </p>
