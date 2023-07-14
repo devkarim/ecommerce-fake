@@ -6,7 +6,7 @@ interface FooterProps {}
 
 const Footer: React.FC<FooterProps> = ({}) => {
   return (
-    <footer className="footer p-10 bg-base-200">
+    <footer className="footer py-10 px-10 2xl:px-48 bg-base-200">
       <div>
         <Logo />
         <p>Copyright &copy; 2023 - All rights reserved</p>
