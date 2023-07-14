@@ -11,7 +11,7 @@ interface AppbarProps {
 const Cart: React.FC<any> = ({}) => {
   return (
     <Link href="/cart">
-      <div className="bg-black text-white rounded-full px-4 py-2 flex items-center justify-center space-x-2">
+      <div className="bg-black text-white rounded-full px-3 py-1 sm:px-4 sm:py-2 flex items-center justify-center space-x-2">
         <FaCartShopping />
         <p>0</p>
       </div>
@@ -21,11 +21,11 @@ const Cart: React.FC<any> = ({}) => {
 
 const Appbar: React.FC<AppbarProps> = ({}) => {
   return (
-    <Container className="py-4 flex justify-between items-center">
+    <Container className="py-4 flex justify-between items-center text-xs sm:text-base">
       <Link href="/">
         <Logo />
       </Link>
-      <div className="flex space-x-4 sm:space-x-14 text-sm font-medium">
+      <div className="flex space-x-3 sm:space-x-14">
         <div className="dropdown">
           <label tabIndex={0}>
             <div className="flex items-center space-x-1 cursor-pointer">

@@ -7,7 +7,7 @@ interface ContainerProps {
 
 const Container: React.FC<ContainerProps> = ({ children, className }) => {
   return (
-    <div className={twMerge('mx-auto max-w-9xl px-8', className)}>
+    <div className={twMerge('mx-auto max-w-9xl px-4 sm:px-8', className)}>
       {children}
     </div>
   );
