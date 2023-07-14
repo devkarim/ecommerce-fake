@@ -20,11 +20,11 @@ const Cart: React.FC<any> = ({}) => {
 
 const Appbar: React.FC<AppbarProps> = ({}) => {
   return (
-    <div className="py-12 px-24 flex justify-between items-center">
+    <div className="py-4 lg:py-12 px-8 lg:px-24 flex justify-between items-center">
       <Link href="/">
         <Logo />
       </Link>
-      <div className="flex space-x-16 text-lg">
+      <div className="flex space-x-4 lg:space-x-16 text-sm lg:text-lg">
         <div className="dropdown">
           <label tabIndex={0}>
             <div className="flex items-center space-x-1 cursor-pointer">
