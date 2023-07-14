@@ -5,11 +5,18 @@ import Logo from '@/components/ui/logo';
 interface FooterProps {}
 
 const Footer: React.FC<FooterProps> = ({}) => {
+  const yearNow = new Date().getFullYear();
+
   return (
     <footer className="footer py-10 px-10 2xl:px-48 bg-base-200">
       <div>
         <Logo />
-        <p>Copyright &copy; 2023 - All rights reserved</p>
+        <br />
+        <p>
+          Made with <span className="text-red-500">❤</span> by{' '}
+          <a href="https://github.com/devkarim">devkarim.</a>
+        </p>
+        <p>Copyright &copy; {yearNow} - All rights reserved.</p>
       </div>
       <div>
         <span className="footer-title">Shops</span>
