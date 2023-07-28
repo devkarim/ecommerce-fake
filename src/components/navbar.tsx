@@ -3,10 +3,9 @@ import Link from 'next/link';
 
 import Logo from '@/components/ui/logo';
 import Container from '@/components/ui/container';
+import { getShops } from '@/services/shops';
 
-interface NavbarProps {
-  children?: React.ReactNode;
-}
+interface NavbarProps {}
 
 const Cart: React.FC<any> = ({}) => {
   return (
@@ -19,14 +18,16 @@ const Cart: React.FC<any> = ({}) => {
   );
 };
 
-const Navbar: React.FC<NavbarProps> = ({}) => {
+const Navbar: React.FC<NavbarProps> = async ({}) => {
+  const shops = await getShops();
+
   return (
     <Container className="py-4 flex justify-between items-center text-xs sm:text-base">
       <Link href="/">
         <Logo />
       </Link>
       <div className="flex space-x-3 sm:space-x-14">
-        <div className="dropdown">
+        <div className="dropdown dropdown-end">
           <label tabIndex={0}>
             <div className="flex items-center space-x-1 cursor-pointer">
               <p>Shop</p>
@@ -35,17 +36,13 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content z-50 menu p-2 shadow bg-base-100 rounded-box w-52"
+            className="dropdown-content z-50 menu p-2 shadow bg-base-300 rounded-box min-w-[150px]"
           >
-            <li>
-              <Link href="/shop/men">Men</Link>
-            </li>
-            <li>
-              <Link href="/shop/women">Women</Link>
-            </li>
-            <li>
-              <Link href="/shop/kids">Kids</Link>
-            </li>
+            {shops.map((shop) => (
+              <li key={shop.id}>
+                <Link href={`/shop/${shop.id}`}>{shop.name}</Link>
+              </li>
+            ))}
           </ul>
         </div>
         <Link href="/featured">Featured</Link>

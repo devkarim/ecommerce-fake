@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+enum PropertyType {
+  FixedValues
+  Number
+  Text
+  Decimal
+}
+
+model Property {
+  id             Int             @id @default(autoincrement())
+  name           String
+  type           PropertyType
+  shop           Shop            @relation(fields: [shopId], references: [id])
+  shopId         Int
+  values         String[]
+  propertyValues PropertyValue[]
+}
+
+model PropertyValue {
+  id         Int      @id @default(autoincrement())
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId Int
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId  Int
+  value      String
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  email         String   @unique
+  name          String?
+  imageUrl      String?
+  shops         Shop[]
+  isGlobalAdmin Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Shop {
+  id        Int        @id @default(autoincrement())
+  name      String
+  user      User       @relation(fields: [userId], references: [id])
+  userId    Int
+  products  Product[]
+  props     Property[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Product {
+  id         Int             @id @default(autoincrement())
+  name       String
+  shop       Shop            @relation(fields: [shopId], references: [id])
+  shopId     Int
+  isFeatured Boolean         @default(false)
+  isArchived Boolean         @default(false)
+  price      Decimal
+  quantity   Int
+  props      PropertyValue[]
+  images     Image[]
+  orders     Order[]
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+}
+
+model Image {
+  id        Int      @id @default(autoincrement())
+  url       String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id        Int      @id @default(autoincrement())
+  isPaid    Boolean  @default(false)
+  phone     String   @default("")
+  address   String   @default("")
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

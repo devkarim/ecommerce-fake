@@ -1,4 +1,4 @@
-import { Feature } from '@/types';
+import { Feature } from '@/types/ui';
 import { FaGlobe, FaLock, FaPersonBiking, FaTruckFast } from 'react-icons/fa6';
 import FeatureCard from './feature-card';
 
