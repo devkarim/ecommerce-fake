@@ -4,14 +4,14 @@ import Link from 'next/link';
 import Logo from '@/components/ui/logo';
 import Container from '@/components/ui/container';
 
-interface AppbarProps {
+interface NavbarProps {
   children?: React.ReactNode;
 }
 
 const Cart: React.FC<any> = ({}) => {
   return (
     <Link href="/cart">
-      <div className="bg-black text-white rounded-full px-3 py-1 sm:px-4 sm:py-2 flex items-center justify-center space-x-2">
+      <div className="bg-accent text-accent-content rounded-full px-3 py-1 sm:px-4 sm:py-2 flex items-center justify-center space-x-2">
         <FaCartShopping />
         <p>0</p>
       </div>
@@ -19,7 +19,7 @@ const Cart: React.FC<any> = ({}) => {
   );
 };
 
-const Appbar: React.FC<AppbarProps> = ({}) => {
+const Navbar: React.FC<NavbarProps> = ({}) => {
   return (
     <Container className="py-4 flex justify-between items-center text-xs sm:text-base">
       <Link href="/">
@@ -56,4 +56,4 @@ const Appbar: React.FC<AppbarProps> = ({}) => {
   );
 };
 
-export default Appbar;
+export default Navbar;

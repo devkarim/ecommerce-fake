@@ -1,13 +1,11 @@
 import { FaArrowRight } from 'react-icons/fa6';
 import Image from 'next/image';
 
-interface ExploreCardProps {
-  children?: React.ReactNode;
-}
+interface ExploreCardProps {}
 
 const ExploreCard: React.FC<ExploreCardProps> = ({}) => {
   return (
-    <div className="card w-full h-[420px] shadow-xl image-full">
+    <div className="card w-full h-[420px] shadow-xl image-full before:!bg-gray-800">
       <figure>
         <Image
           src="/img/home-card.png"
@@ -17,12 +15,12 @@ const ExploreCard: React.FC<ExploreCardProps> = ({}) => {
         />
       </figure>
       <div className="card-body items-center self-center">
-        <p className="text-3xl lg:text-5xl font-bold text-center">
+        <p className="text-white text-3xl lg:text-5xl font-bold text-center">
           Explore your style with our <br />
           newest collection!
         </p>
         <div className="card-actions mt-12 sm:mt-16">
-          <button className="btn btn-secondary text-lg font-normal">
+          <button className="btn btn-primary text-lg font-normal">
             Shop now <FaArrowRight />{' '}
           </button>
         </div>
