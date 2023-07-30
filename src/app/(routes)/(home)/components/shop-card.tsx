@@ -10,7 +10,7 @@ interface ShopCardProps {
 
 const ShopCard: React.FC<ShopCardProps> = ({ href, name, imageUrl }) => {
   return (
-    <div className="card h-[26rem] w-full lg:w-72 bg-base-100 shadow-xl image-full before:!bg-opacity-60 before:!bg-gray-800">
+    <div className="card h-[26rem] w-full lg:w-72 bg-base-100 shadow-xl image-full before:!bg-opacity-60 before:!bg-gray-800 hover:before:!bg-opacity-70 before:transition-colors">
       <figure>
         <Image
           src={imageUrl}
