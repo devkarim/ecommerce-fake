@@ -11,3 +11,7 @@ body,
 .btn {
   text-transform: none;
 }
+
+.btn-info:hover {
+  background-color: #dedede;
+}

@@ -1,7 +1,6 @@
-import { FaArrowRight } from 'react-icons/fa6';
-import Image from 'next/image';
-import Header from '@/components/ui/header';
 import Link from 'next/link';
+import Image from 'next/image';
+import { FaArrowRight } from 'react-icons/fa6';
 
 interface ExploreCardProps {}
 
@@ -22,7 +21,7 @@ const ExploreCard: React.FC<ExploreCardProps> = ({}) => {
           newest collection!
         </p>
         <div className="card-actions mt-12 sm:mt-16">
-          <Link href="/new" className="btn btn-primary text-lg font-normal">
+          <Link href="/new" className="btn btn-info text-lg font-medium">
             Shop now <FaArrowRight />{' '}
           </Link>
         </div>

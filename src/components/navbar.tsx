@@ -10,7 +10,7 @@ interface NavbarProps {}
 const Cart: React.FC<any> = ({}) => {
   return (
     <Link href="/cart">
-      <div className="bg-accent text-accent-content rounded-full px-3 py-1 sm:px-4 sm:py-2 flex items-center justify-center space-x-2">
+      <div className="bg-accent text-accent-content rounded-full px-3 py-1 sm:px-4 sm:py-2 flex items-center justify-center space-x-2 hover:bg-accent-focus">
         <FaCartShopping />
         <p>0</p>
       </div>
