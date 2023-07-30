@@ -1,10 +1,12 @@
 import Link from 'next/link';
 
 import Logo from '@/components/ui/logo';
+import { getFeaturedShops } from '@/services/shops';
 
 interface FooterProps {}
 
-const Footer: React.FC<FooterProps> = ({}) => {
+const Footer: React.FC<FooterProps> = async ({}) => {
+  const shops = await getFeaturedShops();
   const yearNow = new Date().getFullYear();
 
   return (
@@ -20,15 +22,15 @@ const Footer: React.FC<FooterProps> = ({}) => {
       </div>
       <div>
         <span className="footer-title">Shops</span>
-        <Link href="/shop/men" className="link link-hover">
-          Men
-        </Link>
-        <Link href="/shop/women" className="link link-hover">
-          Women
-        </Link>
-        <Link href="/shop/kids" className="link link-hover">
-          Kids
-        </Link>
+        {shops.map((shop) => (
+          <Link
+            key={shop.id}
+            href={`/shop/${shop.id}`}
+            className="link link-hover"
+          >
+            {shop.name}
+          </Link>
+        ))}
       </div>
       <div>
         <span className="footer-title">Products</span>

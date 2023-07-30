@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import Logo from '@/components/ui/logo';
 import Container from '@/components/ui/container';
-import { getShops } from '@/services/shops';
+import { getFeaturedShops } from '@/services/shops';
 
 interface NavbarProps {}
 
@@ -19,7 +19,7 @@ const Cart: React.FC<any> = ({}) => {
 };
 
 const Navbar: React.FC<NavbarProps> = async ({}) => {
-  const shops = await getShops();
+  const shops = await getFeaturedShops();
 
   return (
     <Container className="py-4 flex justify-between items-center text-xs sm:text-base">
