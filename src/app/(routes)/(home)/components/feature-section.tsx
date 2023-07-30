@@ -37,12 +37,12 @@ const features: Feature[] = [
 
 const FeatureSection: React.FC<FeatureSectionProps> = ({}) => {
   return (
-    <div>
+    <div className="space-y-12">
       <Header>
         Discover, shop, and indulge <br />
         with ease
       </Header>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-16 sm:gap-14 md:grid-cols-2 md:gap-12 xl:grid-cols-4">
         {features.map((feature) => (
           <FeatureCard key={feature.title} feature={feature} />
         ))}
