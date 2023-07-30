@@ -86,6 +86,8 @@ export type ShopPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultAr
     id: number
     name: string
     userId: number
+    imageUrl: string
+    isFeatured: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["shop"]>
@@ -4610,6 +4612,8 @@ export namespace Prisma {
     id: number | null
     name: string | null
     userId: number | null
+    imageUrl: string | null
+    isFeatured: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4618,6 +4622,8 @@ export namespace Prisma {
     id: number | null
     name: string | null
     userId: number | null
+    imageUrl: string | null
+    isFeatured: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4626,6 +4632,8 @@ export namespace Prisma {
     id: number
     name: number
     userId: number
+    imageUrl: number
+    isFeatured: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -4646,6 +4654,8 @@ export namespace Prisma {
     id?: true
     name?: true
     userId?: true
+    imageUrl?: true
+    isFeatured?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4654,6 +4664,8 @@ export namespace Prisma {
     id?: true
     name?: true
     userId?: true
+    imageUrl?: true
+    isFeatured?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4662,6 +4674,8 @@ export namespace Prisma {
     id?: true
     name?: true
     userId?: true
+    imageUrl?: true
+    isFeatured?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -4758,6 +4772,8 @@ export namespace Prisma {
     id: number
     name: string
     userId: number
+    imageUrl: string
+    isFeatured: boolean
     createdAt: Date
     updatedAt: Date
     _count: ShopCountAggregateOutputType | null
@@ -4785,6 +4801,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     userId?: boolean
+    imageUrl?: boolean
+    isFeatured?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserArgs<ExtArgs>
@@ -4797,6 +4815,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     userId?: boolean
+    imageUrl?: boolean
+    isFeatured?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -5219,6 +5239,8 @@ export namespace Prisma {
     readonly id: FieldRef<"Shop", 'Int'>
     readonly name: FieldRef<"Shop", 'String'>
     readonly userId: FieldRef<"Shop", 'Int'>
+    readonly imageUrl: FieldRef<"Shop", 'String'>
+    readonly isFeatured: FieldRef<"Shop", 'Boolean'>
     readonly createdAt: FieldRef<"Shop", 'DateTime'>
     readonly updatedAt: FieldRef<"Shop", 'DateTime'>
   }
@@ -8652,6 +8674,8 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     userId: 'userId',
+    imageUrl: 'imageUrl',
+    isFeatured: 'isFeatured',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -9010,6 +9034,8 @@ export namespace Prisma {
     id?: IntFilter<"Shop"> | number
     name?: StringFilter<"Shop"> | string
     userId?: IntFilter<"Shop"> | number
+    imageUrl?: StringFilter<"Shop"> | string
+    isFeatured?: BoolFilter<"Shop"> | boolean
     createdAt?: DateTimeFilter<"Shop"> | Date | string
     updatedAt?: DateTimeFilter<"Shop"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
@@ -9021,6 +9047,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     userId?: SortOrder
+    imageUrl?: SortOrder
+    isFeatured?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -9035,6 +9063,8 @@ export namespace Prisma {
     NOT?: ShopWhereInput | ShopWhereInput[]
     name?: StringFilter<"Shop"> | string
     userId?: IntFilter<"Shop"> | number
+    imageUrl?: StringFilter<"Shop"> | string
+    isFeatured?: BoolFilter<"Shop"> | boolean
     createdAt?: DateTimeFilter<"Shop"> | Date | string
     updatedAt?: DateTimeFilter<"Shop"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
@@ -9046,6 +9076,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     userId?: SortOrder
+    imageUrl?: SortOrder
+    isFeatured?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ShopCountOrderByAggregateInput
@@ -9062,6 +9094,8 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Shop"> | number
     name?: StringWithAggregatesFilter<"Shop"> | string
     userId?: IntWithAggregatesFilter<"Shop"> | number
+    imageUrl?: StringWithAggregatesFilter<"Shop"> | string
+    isFeatured?: BoolWithAggregatesFilter<"Shop"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Shop"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Shop"> | Date | string
   }
@@ -9449,6 +9483,8 @@ export namespace Prisma {
 
   export type ShopCreateInput = {
     name: string
+    imageUrl: string
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutShopsInput
@@ -9460,6 +9496,8 @@ export namespace Prisma {
     id?: number
     name: string
     userId: number
+    imageUrl: string
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductUncheckedCreateNestedManyWithoutShopInput
@@ -9468,6 +9506,8 @@ export namespace Prisma {
 
   export type ShopUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutShopsNestedInput
@@ -9479,6 +9519,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductUncheckedUpdateManyWithoutShopNestedInput
@@ -9489,12 +9531,16 @@ export namespace Prisma {
     id?: number
     name: string
     userId: number
+    imageUrl: string
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type ShopUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9503,6 +9549,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10045,6 +10093,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     userId?: SortOrder
+    imageUrl?: SortOrder
+    isFeatured?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -10058,6 +10108,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     userId?: SortOrder
+    imageUrl?: SortOrder
+    isFeatured?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -10066,6 +10118,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     userId?: SortOrder
+    imageUrl?: SortOrder
+    isFeatured?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -10878,6 +10932,8 @@ export namespace Prisma {
 
   export type ShopCreateWithoutPropsInput = {
     name: string
+    imageUrl: string
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutShopsInput
@@ -10888,6 +10944,8 @@ export namespace Prisma {
     id?: number
     name: string
     userId: number
+    imageUrl: string
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductUncheckedCreateNestedManyWithoutShopInput
@@ -10932,6 +10990,8 @@ export namespace Prisma {
 
   export type ShopUpdateWithoutPropsInput = {
     name?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutShopsNestedInput
@@ -10942,6 +11002,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductUncheckedUpdateManyWithoutShopNestedInput
@@ -11091,6 +11153,8 @@ export namespace Prisma {
 
   export type ShopCreateWithoutUserInput = {
     name: string
+    imageUrl: string
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductCreateNestedManyWithoutShopInput
@@ -11100,6 +11164,8 @@ export namespace Prisma {
   export type ShopUncheckedCreateWithoutUserInput = {
     id?: number
     name: string
+    imageUrl: string
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductUncheckedCreateNestedManyWithoutShopInput
@@ -11139,6 +11205,8 @@ export namespace Prisma {
     id?: IntFilter<"Shop"> | number
     name?: StringFilter<"Shop"> | string
     userId?: IntFilter<"Shop"> | number
+    imageUrl?: StringFilter<"Shop"> | string
+    isFeatured?: BoolFilter<"Shop"> | boolean
     createdAt?: DateTimeFilter<"Shop"> | Date | string
     updatedAt?: DateTimeFilter<"Shop"> | Date | string
   }
@@ -11319,6 +11387,8 @@ export namespace Prisma {
 
   export type ShopCreateWithoutProductsInput = {
     name: string
+    imageUrl: string
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutShopsInput
@@ -11329,6 +11399,8 @@ export namespace Prisma {
     id?: number
     name: string
     userId: number
+    imageUrl: string
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     props?: PropertyUncheckedCreateNestedManyWithoutShopInput
@@ -11423,6 +11495,8 @@ export namespace Prisma {
 
   export type ShopUpdateWithoutProductsInput = {
     name?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutShopsNestedInput
@@ -11433,6 +11507,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     props?: PropertyUncheckedUpdateManyWithoutShopNestedInput
@@ -11676,12 +11752,16 @@ export namespace Prisma {
   export type ShopCreateManyUserInput = {
     id?: number
     name: string
+    imageUrl: string
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type ShopUpdateWithoutUserInput = {
     name?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductUpdateManyWithoutShopNestedInput
@@ -11691,6 +11771,8 @@ export namespace Prisma {
   export type ShopUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductUncheckedUpdateManyWithoutShopNestedInput
@@ -11700,6 +11782,8 @@ export namespace Prisma {
   export type ShopUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

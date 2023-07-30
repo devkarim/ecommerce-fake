@@ -134,6 +134,8 @@ exports.Prisma.ShopScalarFieldEnum = {
   id: 'id',
   name: 'name',
   userId: 'userId',
+  imageUrl: 'imageUrl',
+  isFeatured: 'isFeatured',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

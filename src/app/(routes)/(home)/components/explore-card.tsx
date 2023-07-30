@@ -1,5 +1,7 @@
 import { FaArrowRight } from 'react-icons/fa6';
 import Image from 'next/image';
+import Header from '@/components/ui/header';
+import Link from 'next/link';
 
 interface ExploreCardProps {}
 
@@ -20,9 +22,9 @@ const ExploreCard: React.FC<ExploreCardProps> = ({}) => {
           newest collection!
         </p>
         <div className="card-actions mt-12 sm:mt-16">
-          <button className="btn btn-primary text-lg font-normal">
+          <Link href="" className="btn btn-primary text-lg font-normal">
             Shop now <FaArrowRight />{' '}
-          </button>
+          </Link>
         </div>
       </div>
     </div>

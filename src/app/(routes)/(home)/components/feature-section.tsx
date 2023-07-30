@@ -1,6 +1,8 @@
-import { Feature } from '@/types/ui';
 import { FaGlobe, FaLock, FaPersonBiking, FaTruckFast } from 'react-icons/fa6';
+
+import { Feature } from '@/types/ui';
 import FeatureCard from './feature-card';
+import Header from '@/components/ui/header';
 
 interface FeatureSectionProps {
   children?: React.ReactNode;
@@ -36,10 +38,10 @@ const features: Feature[] = [
 const FeatureSection: React.FC<FeatureSectionProps> = ({}) => {
   return (
     <div>
-      <h1 className="text-3xl lg:text-4xl font-bold">
+      <Header>
         Discover, shop, and indulge <br />
         with ease
-      </h1>
+      </Header>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12 xl:grid-cols-4">
         {features.map((feature) => (
           <FeatureCard key={feature.title} feature={feature} />
