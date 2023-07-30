@@ -22,7 +22,7 @@ const ExploreCard: React.FC<ExploreCardProps> = ({}) => {
           newest collection!
         </p>
         <div className="card-actions mt-12 sm:mt-16">
-          <Link href="" className="btn btn-primary text-lg font-normal">
+          <Link href="/new" className="btn btn-primary text-lg font-normal">
             Shop now <FaArrowRight />{' '}
           </Link>
         </div>

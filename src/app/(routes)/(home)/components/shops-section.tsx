@@ -30,7 +30,10 @@ const ShopsSection: React.FC<ShopsSectionProps> = ({ shops }) => {
             </figure>
             <div className="card-body justify-end items-center">
               <div className="card-actions justify-end">
-                <Link href={`/shop/${shop.id}`} className="btn btn-accent">
+                <Link
+                  href={`/shop/${shop.id}`}
+                  className="btn btn-accent font-medium"
+                >
                   Shop {shop.name} <FaArrowRight className="text-xl" />
                 </Link>
               </div>
