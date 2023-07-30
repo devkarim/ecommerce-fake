@@ -1,18 +1,22 @@
 import Content from '@/components/ui/content';
+import { getFeaturedShops } from '@/services/shops';
+import { getFeaturedProducts } from '@/services/products';
 
 import ExploreCard from './components/explore-card';
-import FeatureSection from './components/feature-section';
 import ShopsSection from './components/shops-section';
-import { getFeaturedShops } from '@/services/shops';
+import FeatureSection from './components/feature-section';
+import FeaturedSection from './components/featured-section';
 
 export default async function Home() {
   const shops = await getFeaturedShops();
+  const products = await getFeaturedProducts();
 
   return (
     <Content>
       <ExploreCard />
       <FeatureSection />
       <ShopsSection shops={shops} />
+      <FeaturedSection products={products} />
     </Content>
   );
 }
