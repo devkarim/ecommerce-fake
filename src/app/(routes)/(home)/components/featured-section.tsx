@@ -18,8 +18,7 @@ const FeaturedSection: React.FC<FeaturedSectionProps> = ({ products }) => {
             name={product.name}
             price={+product.price}
             imageUrl={product.images[0].url}
-            discount={50}
-            // discount={product.discount}
+            discount={product.discount}
           />
         ))}
       </div>

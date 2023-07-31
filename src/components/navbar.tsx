@@ -1,22 +1,12 @@
-import { FaCartShopping, FaArrowDown } from 'react-icons/fa6';
+import { FaArrowDown } from 'react-icons/fa6';
 import Link from 'next/link';
 
 import Logo from '@/components/ui/logo';
+import Cart from '@/components/ui/cart';
 import Container from '@/components/ui/container';
 import { getFeaturedShops } from '@/services/shops';
 
 interface NavbarProps {}
-
-const Cart: React.FC<any> = ({}) => {
-  return (
-    <Link href="/cart">
-      <div className="bg-accent text-accent-content rounded-full px-3 py-1 sm:px-4 sm:py-2 flex items-center justify-center space-x-2 hover:bg-accent-focus">
-        <FaCartShopping />
-        <p>0</p>
-      </div>
-    </Link>
-  );
-};
 
 const Navbar: React.FC<NavbarProps> = async ({}) => {
   const shops = await getFeaturedShops();
