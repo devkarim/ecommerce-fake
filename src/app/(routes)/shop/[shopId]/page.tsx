@@ -21,7 +21,7 @@ const ShopPage: React.FC<ShopPageProps> = async ({ params: { shopId } }) => {
   if (!products || !shop || !props) throw new Error('500');
 
   return (
-    <Content className="flex">
+    <Content className="flex gap-24">
       <FiltersList props={props} />
       <ProductsList products={products} />
     </Content>
