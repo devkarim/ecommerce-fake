@@ -13,7 +13,7 @@ const FiltersList: React.FC<FiltersListProps> = ({ props }) => {
         <div key={p.id}>
           <p className="font-bold">{p.name}</p>
           <div className="divider"></div>
-          <Filter type={p.type} values={p.values} />
+          <Filter name={p.name} type={p.type} values={p.values} />
         </div>
       ))}
     </div>
