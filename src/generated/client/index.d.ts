@@ -81,6 +81,7 @@ export type ShopPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultAr
     user: UserPayload<ExtArgs>
     products: ProductPayload<ExtArgs>[]
     props: PropertyPayload<ExtArgs>[]
+    billboard: BillboardPayload<ExtArgs> | null
   }
   scalars: $Extensions.GetResult<{
     id: number
@@ -99,6 +100,27 @@ export type ShopPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultAr
  * 
  */
 export type Shop = runtime.Types.DefaultSelection<ShopPayload>
+export type BillboardPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "Billboard"
+  objects: {
+    shop: ShopPayload<ExtArgs>
+  }
+  scalars: $Extensions.GetResult<{
+    id: number
+    imageUrl: string | null
+    caption: string | null
+    createdAt: Date
+    updatedAt: Date
+    shopId: number
+  }, ExtArgs["result"]["billboard"]>
+  composites: {}
+}
+
+/**
+ * Model Billboard
+ * 
+ */
+export type Billboard = runtime.Types.DefaultSelection<BillboardPayload>
 export type ProductPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
   name: "Product"
   objects: {
@@ -117,6 +139,7 @@ export type ProductPayload<ExtArgs extends $Extensions.Args = $Extensions.Defaul
     quantity: number
     createdAt: Date
     updatedAt: Date
+    discount: number
   }, ExtArgs["result"]["product"]>
   composites: {}
 }
@@ -344,6 +367,16 @@ export class PrismaClient<
     * ```
     */
   get shop(): Prisma.ShopDelegate<ExtArgs>;
+
+  /**
+   * `prisma.billboard`: Exposes CRUD operations for the **Billboard** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Billboards
+    * const billboards = await prisma.billboard.findMany()
+    * ```
+    */
+  get billboard(): Prisma.BillboardDelegate<ExtArgs>;
 
   /**
    * `prisma.product`: Exposes CRUD operations for the **Product** model.
@@ -861,6 +894,7 @@ export namespace Prisma {
     PropertyValue: 'PropertyValue',
     User: 'User',
     Shop: 'Shop',
+    Billboard: 'Billboard',
     Product: 'Product',
     Image: 'Image',
     Order: 'Order'
@@ -880,7 +914,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'property' | 'propertyValue' | 'user' | 'shop' | 'product' | 'image' | 'order'
+      modelProps: 'property' | 'propertyValue' | 'user' | 'shop' | 'billboard' | 'product' | 'image' | 'order'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1145,6 +1179,72 @@ export namespace Prisma {
           count: {
             args: Prisma.ShopCountArgs<ExtArgs>,
             result: $Utils.Optional<ShopCountAggregateOutputType> | number
+          }
+        }
+      }
+      Billboard: {
+        payload: BillboardPayload<ExtArgs>
+        fields: Prisma.BillboardFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BillboardFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BillboardPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BillboardFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BillboardPayload>
+          }
+          findFirst: {
+            args: Prisma.BillboardFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BillboardPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BillboardFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BillboardPayload>
+          }
+          findMany: {
+            args: Prisma.BillboardFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BillboardPayload>[]
+          }
+          create: {
+            args: Prisma.BillboardCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BillboardPayload>
+          }
+          createMany: {
+            args: Prisma.BillboardCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.BillboardDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BillboardPayload>
+          }
+          update: {
+            args: Prisma.BillboardUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BillboardPayload>
+          }
+          deleteMany: {
+            args: Prisma.BillboardDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BillboardUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.BillboardUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BillboardPayload>
+          }
+          aggregate: {
+            args: Prisma.BillboardAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateBillboard>
+          }
+          groupBy: {
+            args: Prisma.BillboardGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<BillboardGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BillboardCountArgs<ExtArgs>,
+            result: $Utils.Optional<BillboardCountAggregateOutputType> | number
           }
         }
       }
@@ -4808,6 +4908,7 @@ export namespace Prisma {
     user?: boolean | UserArgs<ExtArgs>
     products?: boolean | Shop$productsArgs<ExtArgs>
     props?: boolean | Shop$propsArgs<ExtArgs>
+    billboard?: boolean | Shop$billboardArgs<ExtArgs>
     _count?: boolean | ShopCountOutputTypeArgs<ExtArgs>
   }, ExtArgs["result"]["shop"]>
 
@@ -4825,6 +4926,7 @@ export namespace Prisma {
     user?: boolean | UserArgs<ExtArgs>
     products?: boolean | Shop$productsArgs<ExtArgs>
     props?: boolean | Shop$propsArgs<ExtArgs>
+    billboard?: boolean | Shop$billboardArgs<ExtArgs>
     _count?: boolean | ShopCountOutputTypeArgs<ExtArgs>
   }
 
@@ -5206,6 +5308,8 @@ export namespace Prisma {
     products<T extends Shop$productsArgs<ExtArgs> = {}>(args?: Subset<T, Shop$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<ProductPayload<ExtArgs>, T, 'findMany'>| Null>;
 
     props<T extends Shop$propsArgs<ExtArgs> = {}>(args?: Subset<T, Shop$propsArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<PropertyPayload<ExtArgs>, T, 'findMany'>| Null>;
+
+    billboard<T extends Shop$billboardArgs<ExtArgs> = {}>(args?: Subset<T, Shop$billboardArgs<ExtArgs>>): Prisma__BillboardClient<$Types.GetResult<BillboardPayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
     private get _document();
     /**
@@ -5597,6 +5701,22 @@ export namespace Prisma {
 
 
   /**
+   * Shop.billboard
+   */
+  export type Shop$billboardArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Billboard
+     */
+    select?: BillboardSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BillboardInclude<ExtArgs> | null
+    where?: BillboardWhereInput
+  }
+
+
+  /**
    * Shop without action
    */
   export type ShopArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
@@ -5608,6 +5728,971 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well.
      */
     include?: ShopInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model Billboard
+   */
+
+
+  export type AggregateBillboard = {
+    _count: BillboardCountAggregateOutputType | null
+    _avg: BillboardAvgAggregateOutputType | null
+    _sum: BillboardSumAggregateOutputType | null
+    _min: BillboardMinAggregateOutputType | null
+    _max: BillboardMaxAggregateOutputType | null
+  }
+
+  export type BillboardAvgAggregateOutputType = {
+    id: number | null
+    shopId: number | null
+  }
+
+  export type BillboardSumAggregateOutputType = {
+    id: number | null
+    shopId: number | null
+  }
+
+  export type BillboardMinAggregateOutputType = {
+    id: number | null
+    imageUrl: string | null
+    caption: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    shopId: number | null
+  }
+
+  export type BillboardMaxAggregateOutputType = {
+    id: number | null
+    imageUrl: string | null
+    caption: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    shopId: number | null
+  }
+
+  export type BillboardCountAggregateOutputType = {
+    id: number
+    imageUrl: number
+    caption: number
+    createdAt: number
+    updatedAt: number
+    shopId: number
+    _all: number
+  }
+
+
+  export type BillboardAvgAggregateInputType = {
+    id?: true
+    shopId?: true
+  }
+
+  export type BillboardSumAggregateInputType = {
+    id?: true
+    shopId?: true
+  }
+
+  export type BillboardMinAggregateInputType = {
+    id?: true
+    imageUrl?: true
+    caption?: true
+    createdAt?: true
+    updatedAt?: true
+    shopId?: true
+  }
+
+  export type BillboardMaxAggregateInputType = {
+    id?: true
+    imageUrl?: true
+    caption?: true
+    createdAt?: true
+    updatedAt?: true
+    shopId?: true
+  }
+
+  export type BillboardCountAggregateInputType = {
+    id?: true
+    imageUrl?: true
+    caption?: true
+    createdAt?: true
+    updatedAt?: true
+    shopId?: true
+    _all?: true
+  }
+
+  export type BillboardAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Billboard to aggregate.
+     */
+    where?: BillboardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Billboards to fetch.
+     */
+    orderBy?: BillboardOrderByWithRelationInput | BillboardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BillboardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Billboards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Billboards.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Billboards
+    **/
+    _count?: true | BillboardCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BillboardAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BillboardSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BillboardMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BillboardMaxAggregateInputType
+  }
+
+  export type GetBillboardAggregateType<T extends BillboardAggregateArgs> = {
+        [P in keyof T & keyof AggregateBillboard]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBillboard[P]>
+      : GetScalarType<T[P], AggregateBillboard[P]>
+  }
+
+
+
+
+  export type BillboardGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: BillboardWhereInput
+    orderBy?: BillboardOrderByWithAggregationInput | BillboardOrderByWithAggregationInput[]
+    by: BillboardScalarFieldEnum[] | BillboardScalarFieldEnum
+    having?: BillboardScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BillboardCountAggregateInputType | true
+    _avg?: BillboardAvgAggregateInputType
+    _sum?: BillboardSumAggregateInputType
+    _min?: BillboardMinAggregateInputType
+    _max?: BillboardMaxAggregateInputType
+  }
+
+
+  export type BillboardGroupByOutputType = {
+    id: number
+    imageUrl: string | null
+    caption: string | null
+    createdAt: Date
+    updatedAt: Date
+    shopId: number
+    _count: BillboardCountAggregateOutputType | null
+    _avg: BillboardAvgAggregateOutputType | null
+    _sum: BillboardSumAggregateOutputType | null
+    _min: BillboardMinAggregateOutputType | null
+    _max: BillboardMaxAggregateOutputType | null
+  }
+
+  type GetBillboardGroupByPayload<T extends BillboardGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BillboardGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BillboardGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BillboardGroupByOutputType[P]>
+            : GetScalarType<T[P], BillboardGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BillboardSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    imageUrl?: boolean
+    caption?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    shopId?: boolean
+    shop?: boolean | ShopArgs<ExtArgs>
+  }, ExtArgs["result"]["billboard"]>
+
+  export type BillboardSelectScalar = {
+    id?: boolean
+    imageUrl?: boolean
+    caption?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    shopId?: boolean
+  }
+
+  export type BillboardInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    shop?: boolean | ShopArgs<ExtArgs>
+  }
+
+
+  type BillboardGetPayload<S extends boolean | null | undefined | BillboardArgs> = $Types.GetResult<BillboardPayload, S>
+
+  type BillboardCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
+    Omit<BillboardFindManyArgs, 'select' | 'include'> & {
+      select?: BillboardCountAggregateInputType | true
+    }
+
+  export interface BillboardDelegate<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Billboard'], meta: { name: 'Billboard' } }
+    /**
+     * Find zero or one Billboard that matches the filter.
+     * @param {BillboardFindUniqueArgs} args - Arguments to find a Billboard
+     * @example
+     * // Get one Billboard
+     * const billboard = await prisma.billboard.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends BillboardFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, BillboardFindUniqueArgs<ExtArgs>>
+    ): Prisma__BillboardClient<$Types.GetResult<BillboardPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Billboard that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {BillboardFindUniqueOrThrowArgs} args - Arguments to find a Billboard
+     * @example
+     * // Get one Billboard
+     * const billboard = await prisma.billboard.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends BillboardFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BillboardFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__BillboardClient<$Types.GetResult<BillboardPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Billboard that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BillboardFindFirstArgs} args - Arguments to find a Billboard
+     * @example
+     * // Get one Billboard
+     * const billboard = await prisma.billboard.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends BillboardFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, BillboardFindFirstArgs<ExtArgs>>
+    ): Prisma__BillboardClient<$Types.GetResult<BillboardPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Billboard that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BillboardFindFirstOrThrowArgs} args - Arguments to find a Billboard
+     * @example
+     * // Get one Billboard
+     * const billboard = await prisma.billboard.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends BillboardFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BillboardFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__BillboardClient<$Types.GetResult<BillboardPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Billboards that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BillboardFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Billboards
+     * const billboards = await prisma.billboard.findMany()
+     * 
+     * // Get first 10 Billboards
+     * const billboards = await prisma.billboard.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const billboardWithIdOnly = await prisma.billboard.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends BillboardFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BillboardFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<BillboardPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Billboard.
+     * @param {BillboardCreateArgs} args - Arguments to create a Billboard.
+     * @example
+     * // Create one Billboard
+     * const Billboard = await prisma.billboard.create({
+     *   data: {
+     *     // ... data to create a Billboard
+     *   }
+     * })
+     * 
+    **/
+    create<T extends BillboardCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, BillboardCreateArgs<ExtArgs>>
+    ): Prisma__BillboardClient<$Types.GetResult<BillboardPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Billboards.
+     *     @param {BillboardCreateManyArgs} args - Arguments to create many Billboards.
+     *     @example
+     *     // Create many Billboards
+     *     const billboard = await prisma.billboard.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends BillboardCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BillboardCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Billboard.
+     * @param {BillboardDeleteArgs} args - Arguments to delete one Billboard.
+     * @example
+     * // Delete one Billboard
+     * const Billboard = await prisma.billboard.delete({
+     *   where: {
+     *     // ... filter to delete one Billboard
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends BillboardDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, BillboardDeleteArgs<ExtArgs>>
+    ): Prisma__BillboardClient<$Types.GetResult<BillboardPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Billboard.
+     * @param {BillboardUpdateArgs} args - Arguments to update one Billboard.
+     * @example
+     * // Update one Billboard
+     * const billboard = await prisma.billboard.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends BillboardUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, BillboardUpdateArgs<ExtArgs>>
+    ): Prisma__BillboardClient<$Types.GetResult<BillboardPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Billboards.
+     * @param {BillboardDeleteManyArgs} args - Arguments to filter Billboards to delete.
+     * @example
+     * // Delete a few Billboards
+     * const { count } = await prisma.billboard.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends BillboardDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BillboardDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Billboards.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BillboardUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Billboards
+     * const billboard = await prisma.billboard.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends BillboardUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, BillboardUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Billboard.
+     * @param {BillboardUpsertArgs} args - Arguments to update or create a Billboard.
+     * @example
+     * // Update or create a Billboard
+     * const billboard = await prisma.billboard.upsert({
+     *   create: {
+     *     // ... data to create a Billboard
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Billboard we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends BillboardUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, BillboardUpsertArgs<ExtArgs>>
+    ): Prisma__BillboardClient<$Types.GetResult<BillboardPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Billboards.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BillboardCountArgs} args - Arguments to filter Billboards to count.
+     * @example
+     * // Count the number of Billboards
+     * const count = await prisma.billboard.count({
+     *   where: {
+     *     // ... the filter for the Billboards we want to count
+     *   }
+     * })
+    **/
+    count<T extends BillboardCountArgs>(
+      args?: Subset<T, BillboardCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BillboardCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Billboard.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BillboardAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BillboardAggregateArgs>(args: Subset<T, BillboardAggregateArgs>): Prisma.PrismaPromise<GetBillboardAggregateType<T>>
+
+    /**
+     * Group by Billboard.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BillboardGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BillboardGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BillboardGroupByArgs['orderBy'] }
+        : { orderBy?: BillboardGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BillboardGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBillboardGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Billboard model
+   */
+  readonly fields: BillboardFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Billboard.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__BillboardClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    shop<T extends ShopArgs<ExtArgs> = {}>(args?: Subset<T, ShopArgs<ExtArgs>>): Prisma__ShopClient<$Types.GetResult<ShopPayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Billboard model
+   */ 
+  interface BillboardFieldRefs {
+    readonly id: FieldRef<"Billboard", 'Int'>
+    readonly imageUrl: FieldRef<"Billboard", 'String'>
+    readonly caption: FieldRef<"Billboard", 'String'>
+    readonly createdAt: FieldRef<"Billboard", 'DateTime'>
+    readonly updatedAt: FieldRef<"Billboard", 'DateTime'>
+    readonly shopId: FieldRef<"Billboard", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Billboard findUnique
+   */
+  export type BillboardFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Billboard
+     */
+    select?: BillboardSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BillboardInclude<ExtArgs> | null
+    /**
+     * Filter, which Billboard to fetch.
+     */
+    where: BillboardWhereUniqueInput
+  }
+
+
+  /**
+   * Billboard findUniqueOrThrow
+   */
+  export type BillboardFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Billboard
+     */
+    select?: BillboardSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BillboardInclude<ExtArgs> | null
+    /**
+     * Filter, which Billboard to fetch.
+     */
+    where: BillboardWhereUniqueInput
+  }
+
+
+  /**
+   * Billboard findFirst
+   */
+  export type BillboardFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Billboard
+     */
+    select?: BillboardSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BillboardInclude<ExtArgs> | null
+    /**
+     * Filter, which Billboard to fetch.
+     */
+    where?: BillboardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Billboards to fetch.
+     */
+    orderBy?: BillboardOrderByWithRelationInput | BillboardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Billboards.
+     */
+    cursor?: BillboardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Billboards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Billboards.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Billboards.
+     */
+    distinct?: BillboardScalarFieldEnum | BillboardScalarFieldEnum[]
+  }
+
+
+  /**
+   * Billboard findFirstOrThrow
+   */
+  export type BillboardFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Billboard
+     */
+    select?: BillboardSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BillboardInclude<ExtArgs> | null
+    /**
+     * Filter, which Billboard to fetch.
+     */
+    where?: BillboardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Billboards to fetch.
+     */
+    orderBy?: BillboardOrderByWithRelationInput | BillboardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Billboards.
+     */
+    cursor?: BillboardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Billboards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Billboards.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Billboards.
+     */
+    distinct?: BillboardScalarFieldEnum | BillboardScalarFieldEnum[]
+  }
+
+
+  /**
+   * Billboard findMany
+   */
+  export type BillboardFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Billboard
+     */
+    select?: BillboardSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BillboardInclude<ExtArgs> | null
+    /**
+     * Filter, which Billboards to fetch.
+     */
+    where?: BillboardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Billboards to fetch.
+     */
+    orderBy?: BillboardOrderByWithRelationInput | BillboardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Billboards.
+     */
+    cursor?: BillboardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Billboards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Billboards.
+     */
+    skip?: number
+    distinct?: BillboardScalarFieldEnum | BillboardScalarFieldEnum[]
+  }
+
+
+  /**
+   * Billboard create
+   */
+  export type BillboardCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Billboard
+     */
+    select?: BillboardSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BillboardInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Billboard.
+     */
+    data: XOR<BillboardCreateInput, BillboardUncheckedCreateInput>
+  }
+
+
+  /**
+   * Billboard createMany
+   */
+  export type BillboardCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Billboards.
+     */
+    data: BillboardCreateManyInput | BillboardCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Billboard update
+   */
+  export type BillboardUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Billboard
+     */
+    select?: BillboardSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BillboardInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Billboard.
+     */
+    data: XOR<BillboardUpdateInput, BillboardUncheckedUpdateInput>
+    /**
+     * Choose, which Billboard to update.
+     */
+    where: BillboardWhereUniqueInput
+  }
+
+
+  /**
+   * Billboard updateMany
+   */
+  export type BillboardUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Billboards.
+     */
+    data: XOR<BillboardUpdateManyMutationInput, BillboardUncheckedUpdateManyInput>
+    /**
+     * Filter which Billboards to update
+     */
+    where?: BillboardWhereInput
+  }
+
+
+  /**
+   * Billboard upsert
+   */
+  export type BillboardUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Billboard
+     */
+    select?: BillboardSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BillboardInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Billboard to update in case it exists.
+     */
+    where: BillboardWhereUniqueInput
+    /**
+     * In case the Billboard found by the `where` argument doesn't exist, create a new Billboard with this data.
+     */
+    create: XOR<BillboardCreateInput, BillboardUncheckedCreateInput>
+    /**
+     * In case the Billboard was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BillboardUpdateInput, BillboardUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Billboard delete
+   */
+  export type BillboardDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Billboard
+     */
+    select?: BillboardSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BillboardInclude<ExtArgs> | null
+    /**
+     * Filter which Billboard to delete.
+     */
+    where: BillboardWhereUniqueInput
+  }
+
+
+  /**
+   * Billboard deleteMany
+   */
+  export type BillboardDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Billboards to delete
+     */
+    where?: BillboardWhereInput
+  }
+
+
+  /**
+   * Billboard without action
+   */
+  export type BillboardArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Billboard
+     */
+    select?: BillboardSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BillboardInclude<ExtArgs> | null
   }
 
 
@@ -5630,6 +6715,7 @@ export namespace Prisma {
     shopId: number | null
     price: Decimal | null
     quantity: number | null
+    discount: number | null
   }
 
   export type ProductSumAggregateOutputType = {
@@ -5637,6 +6723,7 @@ export namespace Prisma {
     shopId: number | null
     price: Decimal | null
     quantity: number | null
+    discount: number | null
   }
 
   export type ProductMinAggregateOutputType = {
@@ -5649,6 +6736,7 @@ export namespace Prisma {
     quantity: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    discount: number | null
   }
 
   export type ProductMaxAggregateOutputType = {
@@ -5661,6 +6749,7 @@ export namespace Prisma {
     quantity: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    discount: number | null
   }
 
   export type ProductCountAggregateOutputType = {
@@ -5673,6 +6762,7 @@ export namespace Prisma {
     quantity: number
     createdAt: number
     updatedAt: number
+    discount: number
     _all: number
   }
 
@@ -5682,6 +6772,7 @@ export namespace Prisma {
     shopId?: true
     price?: true
     quantity?: true
+    discount?: true
   }
 
   export type ProductSumAggregateInputType = {
@@ -5689,6 +6780,7 @@ export namespace Prisma {
     shopId?: true
     price?: true
     quantity?: true
+    discount?: true
   }
 
   export type ProductMinAggregateInputType = {
@@ -5701,6 +6793,7 @@ export namespace Prisma {
     quantity?: true
     createdAt?: true
     updatedAt?: true
+    discount?: true
   }
 
   export type ProductMaxAggregateInputType = {
@@ -5713,6 +6806,7 @@ export namespace Prisma {
     quantity?: true
     createdAt?: true
     updatedAt?: true
+    discount?: true
   }
 
   export type ProductCountAggregateInputType = {
@@ -5725,6 +6819,7 @@ export namespace Prisma {
     quantity?: true
     createdAt?: true
     updatedAt?: true
+    discount?: true
     _all?: true
   }
 
@@ -5825,6 +6920,7 @@ export namespace Prisma {
     quantity: number
     createdAt: Date
     updatedAt: Date
+    discount: number
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
     _sum: ProductSumAggregateOutputType | null
@@ -5856,6 +6952,7 @@ export namespace Prisma {
     quantity?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    discount?: boolean
     shop?: boolean | ShopArgs<ExtArgs>
     props?: boolean | Product$propsArgs<ExtArgs>
     images?: boolean | Product$imagesArgs<ExtArgs>
@@ -5873,6 +6970,7 @@ export namespace Prisma {
     quantity?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    discount?: boolean
   }
 
   export type ProductInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
@@ -6302,6 +7400,7 @@ export namespace Prisma {
     readonly quantity: FieldRef<"Product", 'Int'>
     readonly createdAt: FieldRef<"Product", 'DateTime'>
     readonly updatedAt: FieldRef<"Product", 'DateTime'>
+    readonly discount: FieldRef<"Product", 'Int'>
   }
     
 
@@ -8683,6 +9782,18 @@ export namespace Prisma {
   export type ShopScalarFieldEnum = (typeof ShopScalarFieldEnum)[keyof typeof ShopScalarFieldEnum]
 
 
+  export const BillboardScalarFieldEnum: {
+    id: 'id',
+    imageUrl: 'imageUrl',
+    caption: 'caption',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    shopId: 'shopId'
+  };
+
+  export type BillboardScalarFieldEnum = (typeof BillboardScalarFieldEnum)[keyof typeof BillboardScalarFieldEnum]
+
+
   export const ProductScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -8692,7 +9803,8 @@ export namespace Prisma {
     price: 'price',
     quantity: 'quantity',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    discount: 'discount'
   };
 
   export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -9041,6 +10153,7 @@ export namespace Prisma {
     user?: XOR<UserRelationFilter, UserWhereInput>
     products?: ProductListRelationFilter
     props?: PropertyListRelationFilter
+    billboard?: XOR<BillboardNullableRelationFilter, BillboardWhereInput> | null
   }
 
   export type ShopOrderByWithRelationInput = {
@@ -9054,6 +10167,7 @@ export namespace Prisma {
     user?: UserOrderByWithRelationInput
     products?: ProductOrderByRelationAggregateInput
     props?: PropertyOrderByRelationAggregateInput
+    billboard?: BillboardOrderByWithRelationInput
   }
 
   export type ShopWhereUniqueInput = Prisma.AtLeast<{
@@ -9070,6 +10184,7 @@ export namespace Prisma {
     user?: XOR<UserRelationFilter, UserWhereInput>
     products?: ProductListRelationFilter
     props?: PropertyListRelationFilter
+    billboard?: XOR<BillboardNullableRelationFilter, BillboardWhereInput> | null
   }, "id">
 
   export type ShopOrderByWithAggregationInput = {
@@ -9100,6 +10215,68 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Shop"> | Date | string
   }
 
+  export type BillboardWhereInput = {
+    AND?: BillboardWhereInput | BillboardWhereInput[]
+    OR?: BillboardWhereInput[]
+    NOT?: BillboardWhereInput | BillboardWhereInput[]
+    id?: IntFilter<"Billboard"> | number
+    imageUrl?: StringNullableFilter<"Billboard"> | string | null
+    caption?: StringNullableFilter<"Billboard"> | string | null
+    createdAt?: DateTimeFilter<"Billboard"> | Date | string
+    updatedAt?: DateTimeFilter<"Billboard"> | Date | string
+    shopId?: IntFilter<"Billboard"> | number
+    shop?: XOR<ShopRelationFilter, ShopWhereInput>
+  }
+
+  export type BillboardOrderByWithRelationInput = {
+    id?: SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    caption?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    shopId?: SortOrder
+    shop?: ShopOrderByWithRelationInput
+  }
+
+  export type BillboardWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    shopId?: number
+    AND?: BillboardWhereInput | BillboardWhereInput[]
+    OR?: BillboardWhereInput[]
+    NOT?: BillboardWhereInput | BillboardWhereInput[]
+    imageUrl?: StringNullableFilter<"Billboard"> | string | null
+    caption?: StringNullableFilter<"Billboard"> | string | null
+    createdAt?: DateTimeFilter<"Billboard"> | Date | string
+    updatedAt?: DateTimeFilter<"Billboard"> | Date | string
+    shop?: XOR<ShopRelationFilter, ShopWhereInput>
+  }, "id" | "shopId">
+
+  export type BillboardOrderByWithAggregationInput = {
+    id?: SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    caption?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    shopId?: SortOrder
+    _count?: BillboardCountOrderByAggregateInput
+    _avg?: BillboardAvgOrderByAggregateInput
+    _max?: BillboardMaxOrderByAggregateInput
+    _min?: BillboardMinOrderByAggregateInput
+    _sum?: BillboardSumOrderByAggregateInput
+  }
+
+  export type BillboardScalarWhereWithAggregatesInput = {
+    AND?: BillboardScalarWhereWithAggregatesInput | BillboardScalarWhereWithAggregatesInput[]
+    OR?: BillboardScalarWhereWithAggregatesInput[]
+    NOT?: BillboardScalarWhereWithAggregatesInput | BillboardScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Billboard"> | number
+    imageUrl?: StringNullableWithAggregatesFilter<"Billboard"> | string | null
+    caption?: StringNullableWithAggregatesFilter<"Billboard"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Billboard"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Billboard"> | Date | string
+    shopId?: IntWithAggregatesFilter<"Billboard"> | number
+  }
+
   export type ProductWhereInput = {
     AND?: ProductWhereInput | ProductWhereInput[]
     OR?: ProductWhereInput[]
@@ -9113,6 +10290,7 @@ export namespace Prisma {
     quantity?: IntFilter<"Product"> | number
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
+    discount?: IntFilter<"Product"> | number
     shop?: XOR<ShopRelationFilter, ShopWhereInput>
     props?: PropertyValueListRelationFilter
     images?: ImageListRelationFilter
@@ -9129,6 +10307,7 @@ export namespace Prisma {
     quantity?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    discount?: SortOrder
     shop?: ShopOrderByWithRelationInput
     props?: PropertyValueOrderByRelationAggregateInput
     images?: ImageOrderByRelationAggregateInput
@@ -9148,6 +10327,7 @@ export namespace Prisma {
     quantity?: IntFilter<"Product"> | number
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
+    discount?: IntFilter<"Product"> | number
     shop?: XOR<ShopRelationFilter, ShopWhereInput>
     props?: PropertyValueListRelationFilter
     images?: ImageListRelationFilter
@@ -9164,6 +10344,7 @@ export namespace Prisma {
     quantity?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    discount?: SortOrder
     _count?: ProductCountOrderByAggregateInput
     _avg?: ProductAvgOrderByAggregateInput
     _max?: ProductMaxOrderByAggregateInput
@@ -9184,6 +10365,7 @@ export namespace Prisma {
     quantity?: IntWithAggregatesFilter<"Product"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
+    discount?: IntWithAggregatesFilter<"Product"> | number
   }
 
   export type ImageWhereInput = {
@@ -9490,6 +10672,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutShopsInput
     products?: ProductCreateNestedManyWithoutShopInput
     props?: PropertyCreateNestedManyWithoutShopInput
+    billboard?: BillboardCreateNestedOneWithoutShopInput
   }
 
   export type ShopUncheckedCreateInput = {
@@ -9502,6 +10685,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     products?: ProductUncheckedCreateNestedManyWithoutShopInput
     props?: PropertyUncheckedCreateNestedManyWithoutShopInput
+    billboard?: BillboardUncheckedCreateNestedOneWithoutShopInput
   }
 
   export type ShopUpdateInput = {
@@ -9513,6 +10697,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutShopsNestedInput
     products?: ProductUpdateManyWithoutShopNestedInput
     props?: PropertyUpdateManyWithoutShopNestedInput
+    billboard?: BillboardUpdateOneWithoutShopNestedInput
   }
 
   export type ShopUncheckedUpdateInput = {
@@ -9525,6 +10710,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductUncheckedUpdateManyWithoutShopNestedInput
     props?: PropertyUncheckedUpdateManyWithoutShopNestedInput
+    billboard?: BillboardUncheckedUpdateOneWithoutShopNestedInput
   }
 
   export type ShopCreateManyInput = {
@@ -9555,6 +10741,65 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BillboardCreateInput = {
+    imageUrl?: string | null
+    caption?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    shop: ShopCreateNestedOneWithoutBillboardInput
+  }
+
+  export type BillboardUncheckedCreateInput = {
+    id?: number
+    imageUrl?: string | null
+    caption?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    shopId: number
+  }
+
+  export type BillboardUpdateInput = {
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    shop?: ShopUpdateOneRequiredWithoutBillboardNestedInput
+  }
+
+  export type BillboardUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    shopId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BillboardCreateManyInput = {
+    id?: number
+    imageUrl?: string | null
+    caption?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    shopId: number
+  }
+
+  export type BillboardUpdateManyMutationInput = {
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BillboardUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    shopId?: IntFieldUpdateOperationsInput | number
+  }
+
   export type ProductCreateInput = {
     name: string
     isFeatured?: boolean
@@ -9563,6 +10808,7 @@ export namespace Prisma {
     quantity: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    discount?: number
     shop: ShopCreateNestedOneWithoutProductsInput
     props?: PropertyValueCreateNestedManyWithoutProductInput
     images?: ImageCreateNestedManyWithoutProductInput
@@ -9579,6 +10825,7 @@ export namespace Prisma {
     quantity: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    discount?: number
     props?: PropertyValueUncheckedCreateNestedManyWithoutProductInput
     images?: ImageUncheckedCreateNestedManyWithoutProductInput
     orders?: OrderUncheckedCreateNestedManyWithoutProductInput
@@ -9592,6 +10839,7 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    discount?: IntFieldUpdateOperationsInput | number
     shop?: ShopUpdateOneRequiredWithoutProductsNestedInput
     props?: PropertyValueUpdateManyWithoutProductNestedInput
     images?: ImageUpdateManyWithoutProductNestedInput
@@ -9608,6 +10856,7 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    discount?: IntFieldUpdateOperationsInput | number
     props?: PropertyValueUncheckedUpdateManyWithoutProductNestedInput
     images?: ImageUncheckedUpdateManyWithoutProductNestedInput
     orders?: OrderUncheckedUpdateManyWithoutProductNestedInput
@@ -9623,6 +10872,7 @@ export namespace Prisma {
     quantity: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    discount?: number
   }
 
   export type ProductUpdateManyMutationInput = {
@@ -9633,6 +10883,7 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    discount?: IntFieldUpdateOperationsInput | number
   }
 
   export type ProductUncheckedUpdateManyInput = {
@@ -9645,6 +10896,7 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    discount?: IntFieldUpdateOperationsInput | number
   }
 
   export type ImageCreateInput = {
@@ -10081,6 +11333,11 @@ export namespace Prisma {
     none?: PropertyWhereInput
   }
 
+  export type BillboardNullableRelationFilter = {
+    is?: BillboardWhereInput | null
+    isNot?: BillboardWhereInput | null
+  }
+
   export type ProductOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -10129,6 +11386,43 @@ export namespace Prisma {
     userId?: SortOrder
   }
 
+  export type BillboardCountOrderByAggregateInput = {
+    id?: SortOrder
+    imageUrl?: SortOrder
+    caption?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    shopId?: SortOrder
+  }
+
+  export type BillboardAvgOrderByAggregateInput = {
+    id?: SortOrder
+    shopId?: SortOrder
+  }
+
+  export type BillboardMaxOrderByAggregateInput = {
+    id?: SortOrder
+    imageUrl?: SortOrder
+    caption?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    shopId?: SortOrder
+  }
+
+  export type BillboardMinOrderByAggregateInput = {
+    id?: SortOrder
+    imageUrl?: SortOrder
+    caption?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    shopId?: SortOrder
+  }
+
+  export type BillboardSumOrderByAggregateInput = {
+    id?: SortOrder
+    shopId?: SortOrder
+  }
+
   export type DecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -10170,6 +11464,7 @@ export namespace Prisma {
     quantity?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    discount?: SortOrder
   }
 
   export type ProductAvgOrderByAggregateInput = {
@@ -10177,6 +11472,7 @@ export namespace Prisma {
     shopId?: SortOrder
     price?: SortOrder
     quantity?: SortOrder
+    discount?: SortOrder
   }
 
   export type ProductMaxOrderByAggregateInput = {
@@ -10189,6 +11485,7 @@ export namespace Prisma {
     quantity?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    discount?: SortOrder
   }
 
   export type ProductMinOrderByAggregateInput = {
@@ -10201,6 +11498,7 @@ export namespace Prisma {
     quantity?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    discount?: SortOrder
   }
 
   export type ProductSumOrderByAggregateInput = {
@@ -10208,6 +11506,7 @@ export namespace Prisma {
     shopId?: SortOrder
     price?: SortOrder
     quantity?: SortOrder
+    discount?: SortOrder
   }
 
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -10483,6 +11782,12 @@ export namespace Prisma {
     connect?: PropertyWhereUniqueInput | PropertyWhereUniqueInput[]
   }
 
+  export type BillboardCreateNestedOneWithoutShopInput = {
+    create?: XOR<BillboardCreateWithoutShopInput, BillboardUncheckedCreateWithoutShopInput>
+    connectOrCreate?: BillboardCreateOrConnectWithoutShopInput
+    connect?: BillboardWhereUniqueInput
+  }
+
   export type ProductUncheckedCreateNestedManyWithoutShopInput = {
     create?: XOR<ProductCreateWithoutShopInput, ProductUncheckedCreateWithoutShopInput> | ProductCreateWithoutShopInput[] | ProductUncheckedCreateWithoutShopInput[]
     connectOrCreate?: ProductCreateOrConnectWithoutShopInput | ProductCreateOrConnectWithoutShopInput[]
@@ -10495,6 +11800,12 @@ export namespace Prisma {
     connectOrCreate?: PropertyCreateOrConnectWithoutShopInput | PropertyCreateOrConnectWithoutShopInput[]
     createMany?: PropertyCreateManyShopInputEnvelope
     connect?: PropertyWhereUniqueInput | PropertyWhereUniqueInput[]
+  }
+
+  export type BillboardUncheckedCreateNestedOneWithoutShopInput = {
+    create?: XOR<BillboardCreateWithoutShopInput, BillboardUncheckedCreateWithoutShopInput>
+    connectOrCreate?: BillboardCreateOrConnectWithoutShopInput
+    connect?: BillboardWhereUniqueInput
   }
 
   export type UserUpdateOneRequiredWithoutShopsNestedInput = {
@@ -10533,6 +11844,16 @@ export namespace Prisma {
     deleteMany?: PropertyScalarWhereInput | PropertyScalarWhereInput[]
   }
 
+  export type BillboardUpdateOneWithoutShopNestedInput = {
+    create?: XOR<BillboardCreateWithoutShopInput, BillboardUncheckedCreateWithoutShopInput>
+    connectOrCreate?: BillboardCreateOrConnectWithoutShopInput
+    upsert?: BillboardUpsertWithoutShopInput
+    disconnect?: BillboardWhereInput | boolean
+    delete?: BillboardWhereInput | boolean
+    connect?: BillboardWhereUniqueInput
+    update?: XOR<XOR<BillboardUpdateToOneWithWhereWithoutShopInput, BillboardUpdateWithoutShopInput>, BillboardUncheckedUpdateWithoutShopInput>
+  }
+
   export type ProductUncheckedUpdateManyWithoutShopNestedInput = {
     create?: XOR<ProductCreateWithoutShopInput, ProductUncheckedCreateWithoutShopInput> | ProductCreateWithoutShopInput[] | ProductUncheckedCreateWithoutShopInput[]
     connectOrCreate?: ProductCreateOrConnectWithoutShopInput | ProductCreateOrConnectWithoutShopInput[]
@@ -10559,6 +11880,30 @@ export namespace Prisma {
     update?: PropertyUpdateWithWhereUniqueWithoutShopInput | PropertyUpdateWithWhereUniqueWithoutShopInput[]
     updateMany?: PropertyUpdateManyWithWhereWithoutShopInput | PropertyUpdateManyWithWhereWithoutShopInput[]
     deleteMany?: PropertyScalarWhereInput | PropertyScalarWhereInput[]
+  }
+
+  export type BillboardUncheckedUpdateOneWithoutShopNestedInput = {
+    create?: XOR<BillboardCreateWithoutShopInput, BillboardUncheckedCreateWithoutShopInput>
+    connectOrCreate?: BillboardCreateOrConnectWithoutShopInput
+    upsert?: BillboardUpsertWithoutShopInput
+    disconnect?: BillboardWhereInput | boolean
+    delete?: BillboardWhereInput | boolean
+    connect?: BillboardWhereUniqueInput
+    update?: XOR<XOR<BillboardUpdateToOneWithWhereWithoutShopInput, BillboardUpdateWithoutShopInput>, BillboardUncheckedUpdateWithoutShopInput>
+  }
+
+  export type ShopCreateNestedOneWithoutBillboardInput = {
+    create?: XOR<ShopCreateWithoutBillboardInput, ShopUncheckedCreateWithoutBillboardInput>
+    connectOrCreate?: ShopCreateOrConnectWithoutBillboardInput
+    connect?: ShopWhereUniqueInput
+  }
+
+  export type ShopUpdateOneRequiredWithoutBillboardNestedInput = {
+    create?: XOR<ShopCreateWithoutBillboardInput, ShopUncheckedCreateWithoutBillboardInput>
+    connectOrCreate?: ShopCreateOrConnectWithoutBillboardInput
+    upsert?: ShopUpsertWithoutBillboardInput
+    connect?: ShopWhereUniqueInput
+    update?: XOR<XOR<ShopUpdateToOneWithWhereWithoutBillboardInput, ShopUpdateWithoutBillboardInput>, ShopUncheckedUpdateWithoutBillboardInput>
   }
 
   export type ShopCreateNestedOneWithoutProductsInput = {
@@ -10938,6 +12283,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutShopsInput
     products?: ProductCreateNestedManyWithoutShopInput
+    billboard?: BillboardCreateNestedOneWithoutShopInput
   }
 
   export type ShopUncheckedCreateWithoutPropsInput = {
@@ -10949,6 +12295,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductUncheckedCreateNestedManyWithoutShopInput
+    billboard?: BillboardUncheckedCreateNestedOneWithoutShopInput
   }
 
   export type ShopCreateOrConnectWithoutPropsInput = {
@@ -10996,6 +12343,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutShopsNestedInput
     products?: ProductUpdateManyWithoutShopNestedInput
+    billboard?: BillboardUpdateOneWithoutShopNestedInput
   }
 
   export type ShopUncheckedUpdateWithoutPropsInput = {
@@ -11007,6 +12355,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductUncheckedUpdateManyWithoutShopNestedInput
+    billboard?: BillboardUncheckedUpdateOneWithoutShopNestedInput
   }
 
   export type PropertyValueUpsertWithWhereUniqueWithoutPropertyInput = {
@@ -11063,6 +12412,7 @@ export namespace Prisma {
     quantity: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    discount?: number
     shop: ShopCreateNestedOneWithoutProductsInput
     images?: ImageCreateNestedManyWithoutProductInput
     orders?: OrderCreateNestedManyWithoutProductInput
@@ -11078,6 +12428,7 @@ export namespace Prisma {
     quantity: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    discount?: number
     images?: ImageUncheckedCreateNestedManyWithoutProductInput
     orders?: OrderUncheckedCreateNestedManyWithoutProductInput
   }
@@ -11132,6 +12483,7 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    discount?: IntFieldUpdateOperationsInput | number
     shop?: ShopUpdateOneRequiredWithoutProductsNestedInput
     images?: ImageUpdateManyWithoutProductNestedInput
     orders?: OrderUpdateManyWithoutProductNestedInput
@@ -11147,6 +12499,7 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    discount?: IntFieldUpdateOperationsInput | number
     images?: ImageUncheckedUpdateManyWithoutProductNestedInput
     orders?: OrderUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -11159,6 +12512,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     products?: ProductCreateNestedManyWithoutShopInput
     props?: PropertyCreateNestedManyWithoutShopInput
+    billboard?: BillboardCreateNestedOneWithoutShopInput
   }
 
   export type ShopUncheckedCreateWithoutUserInput = {
@@ -11170,6 +12524,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     products?: ProductUncheckedCreateNestedManyWithoutShopInput
     props?: PropertyUncheckedCreateNestedManyWithoutShopInput
+    billboard?: BillboardUncheckedCreateNestedOneWithoutShopInput
   }
 
   export type ShopCreateOrConnectWithoutUserInput = {
@@ -11243,6 +12598,7 @@ export namespace Prisma {
     quantity: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    discount?: number
     props?: PropertyValueCreateNestedManyWithoutProductInput
     images?: ImageCreateNestedManyWithoutProductInput
     orders?: OrderCreateNestedManyWithoutProductInput
@@ -11257,6 +12613,7 @@ export namespace Prisma {
     quantity: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    discount?: number
     props?: PropertyValueUncheckedCreateNestedManyWithoutProductInput
     images?: ImageUncheckedCreateNestedManyWithoutProductInput
     orders?: OrderUncheckedCreateNestedManyWithoutProductInput
@@ -11295,6 +12652,26 @@ export namespace Prisma {
   export type PropertyCreateManyShopInputEnvelope = {
     data: PropertyCreateManyShopInput | PropertyCreateManyShopInput[]
     skipDuplicates?: boolean
+  }
+
+  export type BillboardCreateWithoutShopInput = {
+    imageUrl?: string | null
+    caption?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BillboardUncheckedCreateWithoutShopInput = {
+    id?: number
+    imageUrl?: string | null
+    caption?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BillboardCreateOrConnectWithoutShopInput = {
+    where: BillboardWhereUniqueInput
+    create: XOR<BillboardCreateWithoutShopInput, BillboardUncheckedCreateWithoutShopInput>
   }
 
   export type UserUpsertWithoutShopsInput = {
@@ -11356,6 +12733,7 @@ export namespace Prisma {
     quantity?: IntFilter<"Product"> | number
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
+    discount?: IntFilter<"Product"> | number
   }
 
   export type PropertyUpsertWithWhereUniqueWithoutShopInput = {
@@ -11385,6 +12763,94 @@ export namespace Prisma {
     values?: StringNullableListFilter<"Property">
   }
 
+  export type BillboardUpsertWithoutShopInput = {
+    update: XOR<BillboardUpdateWithoutShopInput, BillboardUncheckedUpdateWithoutShopInput>
+    create: XOR<BillboardCreateWithoutShopInput, BillboardUncheckedCreateWithoutShopInput>
+    where?: BillboardWhereInput
+  }
+
+  export type BillboardUpdateToOneWithWhereWithoutShopInput = {
+    where?: BillboardWhereInput
+    data: XOR<BillboardUpdateWithoutShopInput, BillboardUncheckedUpdateWithoutShopInput>
+  }
+
+  export type BillboardUpdateWithoutShopInput = {
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BillboardUncheckedUpdateWithoutShopInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ShopCreateWithoutBillboardInput = {
+    name: string
+    imageUrl: string
+    isFeatured?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutShopsInput
+    products?: ProductCreateNestedManyWithoutShopInput
+    props?: PropertyCreateNestedManyWithoutShopInput
+  }
+
+  export type ShopUncheckedCreateWithoutBillboardInput = {
+    id?: number
+    name: string
+    userId: number
+    imageUrl: string
+    isFeatured?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    products?: ProductUncheckedCreateNestedManyWithoutShopInput
+    props?: PropertyUncheckedCreateNestedManyWithoutShopInput
+  }
+
+  export type ShopCreateOrConnectWithoutBillboardInput = {
+    where: ShopWhereUniqueInput
+    create: XOR<ShopCreateWithoutBillboardInput, ShopUncheckedCreateWithoutBillboardInput>
+  }
+
+  export type ShopUpsertWithoutBillboardInput = {
+    update: XOR<ShopUpdateWithoutBillboardInput, ShopUncheckedUpdateWithoutBillboardInput>
+    create: XOR<ShopCreateWithoutBillboardInput, ShopUncheckedCreateWithoutBillboardInput>
+    where?: ShopWhereInput
+  }
+
+  export type ShopUpdateToOneWithWhereWithoutBillboardInput = {
+    where?: ShopWhereInput
+    data: XOR<ShopUpdateWithoutBillboardInput, ShopUncheckedUpdateWithoutBillboardInput>
+  }
+
+  export type ShopUpdateWithoutBillboardInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutShopsNestedInput
+    products?: ProductUpdateManyWithoutShopNestedInput
+    props?: PropertyUpdateManyWithoutShopNestedInput
+  }
+
+  export type ShopUncheckedUpdateWithoutBillboardInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    userId?: IntFieldUpdateOperationsInput | number
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    products?: ProductUncheckedUpdateManyWithoutShopNestedInput
+    props?: PropertyUncheckedUpdateManyWithoutShopNestedInput
+  }
+
   export type ShopCreateWithoutProductsInput = {
     name: string
     imageUrl: string
@@ -11393,6 +12859,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutShopsInput
     props?: PropertyCreateNestedManyWithoutShopInput
+    billboard?: BillboardCreateNestedOneWithoutShopInput
   }
 
   export type ShopUncheckedCreateWithoutProductsInput = {
@@ -11404,6 +12871,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     props?: PropertyUncheckedCreateNestedManyWithoutShopInput
+    billboard?: BillboardUncheckedCreateNestedOneWithoutShopInput
   }
 
   export type ShopCreateOrConnectWithoutProductsInput = {
@@ -11501,6 +12969,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutShopsNestedInput
     props?: PropertyUpdateManyWithoutShopNestedInput
+    billboard?: BillboardUpdateOneWithoutShopNestedInput
   }
 
   export type ShopUncheckedUpdateWithoutProductsInput = {
@@ -11512,6 +12981,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     props?: PropertyUncheckedUpdateManyWithoutShopNestedInput
+    billboard?: BillboardUncheckedUpdateOneWithoutShopNestedInput
   }
 
   export type PropertyValueUpsertWithWhereUniqueWithoutProductInput = {
@@ -11594,6 +13064,7 @@ export namespace Prisma {
     quantity: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    discount?: number
     shop: ShopCreateNestedOneWithoutProductsInput
     props?: PropertyValueCreateNestedManyWithoutProductInput
     orders?: OrderCreateNestedManyWithoutProductInput
@@ -11609,6 +13080,7 @@ export namespace Prisma {
     quantity: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    discount?: number
     props?: PropertyValueUncheckedCreateNestedManyWithoutProductInput
     orders?: OrderUncheckedCreateNestedManyWithoutProductInput
   }
@@ -11637,6 +13109,7 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    discount?: IntFieldUpdateOperationsInput | number
     shop?: ShopUpdateOneRequiredWithoutProductsNestedInput
     props?: PropertyValueUpdateManyWithoutProductNestedInput
     orders?: OrderUpdateManyWithoutProductNestedInput
@@ -11652,6 +13125,7 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    discount?: IntFieldUpdateOperationsInput | number
     props?: PropertyValueUncheckedUpdateManyWithoutProductNestedInput
     orders?: OrderUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -11664,6 +13138,7 @@ export namespace Prisma {
     quantity: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    discount?: number
     shop: ShopCreateNestedOneWithoutProductsInput
     props?: PropertyValueCreateNestedManyWithoutProductInput
     images?: ImageCreateNestedManyWithoutProductInput
@@ -11679,6 +13154,7 @@ export namespace Prisma {
     quantity: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    discount?: number
     props?: PropertyValueUncheckedCreateNestedManyWithoutProductInput
     images?: ImageUncheckedCreateNestedManyWithoutProductInput
   }
@@ -11707,6 +13183,7 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    discount?: IntFieldUpdateOperationsInput | number
     shop?: ShopUpdateOneRequiredWithoutProductsNestedInput
     props?: PropertyValueUpdateManyWithoutProductNestedInput
     images?: ImageUpdateManyWithoutProductNestedInput
@@ -11722,6 +13199,7 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    discount?: IntFieldUpdateOperationsInput | number
     props?: PropertyValueUncheckedUpdateManyWithoutProductNestedInput
     images?: ImageUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -11766,6 +13244,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductUpdateManyWithoutShopNestedInput
     props?: PropertyUpdateManyWithoutShopNestedInput
+    billboard?: BillboardUpdateOneWithoutShopNestedInput
   }
 
   export type ShopUncheckedUpdateWithoutUserInput = {
@@ -11777,6 +13256,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductUncheckedUpdateManyWithoutShopNestedInput
     props?: PropertyUncheckedUpdateManyWithoutShopNestedInput
+    billboard?: BillboardUncheckedUpdateOneWithoutShopNestedInput
   }
 
   export type ShopUncheckedUpdateManyWithoutUserInput = {
@@ -11797,6 +13277,7 @@ export namespace Prisma {
     quantity: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    discount?: number
   }
 
   export type PropertyCreateManyShopInput = {
@@ -11814,6 +13295,7 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    discount?: IntFieldUpdateOperationsInput | number
     props?: PropertyValueUpdateManyWithoutProductNestedInput
     images?: ImageUpdateManyWithoutProductNestedInput
     orders?: OrderUpdateManyWithoutProductNestedInput
@@ -11828,6 +13310,7 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    discount?: IntFieldUpdateOperationsInput | number
     props?: PropertyValueUncheckedUpdateManyWithoutProductNestedInput
     images?: ImageUncheckedUpdateManyWithoutProductNestedInput
     orders?: OrderUncheckedUpdateManyWithoutProductNestedInput
@@ -11842,6 +13325,7 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    discount?: IntFieldUpdateOperationsInput | number
   }
 
   export type PropertyUpdateWithoutShopInput = {

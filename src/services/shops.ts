@@ -1,12 +1,12 @@
 import { BaseResponse } from '@/types/api';
-import { FullProduct } from '@/types/db';
+import { FullProduct, ShopBillboard } from '@/types/db';
 import { Property, Shop } from '@/generated/client';
 
 import client from './client';
 
 type ShopsResponse = BaseResponse<Shop[]>;
 
-type ShopResponse = BaseResponse<Shop>;
+type ShopResponse = BaseResponse<ShopBillboard>;
 
 type PropertiesResponse = BaseResponse<Property[]>;
 

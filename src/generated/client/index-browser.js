@@ -140,6 +140,15 @@ exports.Prisma.ShopScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.BillboardScalarFieldEnum = {
+  id: 'id',
+  imageUrl: 'imageUrl',
+  caption: 'caption',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  shopId: 'shopId'
+};
+
 exports.Prisma.ProductScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -149,7 +158,8 @@ exports.Prisma.ProductScalarFieldEnum = {
   price: 'price',
   quantity: 'quantity',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  discount: 'discount'
 };
 
 exports.Prisma.ImageScalarFieldEnum = {
@@ -196,6 +206,7 @@ exports.Prisma.ModelName = {
   PropertyValue: 'PropertyValue',
   User: 'User',
   Shop: 'Shop',
+  Billboard: 'Billboard',
   Product: 'Product',
   Image: 'Image',
   Order: 'Order'

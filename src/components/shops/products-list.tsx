@@ -7,7 +7,7 @@ interface ProductsListProps {
 
 const ProductsList: React.FC<ProductsListProps> = ({ products }) => {
   return (
-    <div className="flex gap-12">
+    <div className="flex flex-wrap gap-12">
       {products.map((p) => (
         <ProductCard
           key={p.id}

@@ -1,6 +1,7 @@
 import FiltersList from '@/components/shops/filters-list';
 import ProductsList from '@/components/shops/products-list';
 import Content from '@/components/ui/content';
+import HeaderCard from '@/components/ui/header-card';
 import {
   getShopProducts,
   getShopById,
@@ -21,9 +22,18 @@ const ShopPage: React.FC<ShopPageProps> = async ({ params: { shopId } }) => {
   if (!products || !shop || !props) throw new Error('500');
 
   return (
-    <Content className="flex gap-24">
-      <FiltersList props={props} />
-      <ProductsList products={products} />
+    <Content>
+      <HeaderCard
+        imageUrl={shop.billboard?.imageUrl || '/img/header-card-default.jpg'}
+        caption={
+          shop.billboard?.caption || 'Explore your style \nwith our collection!'
+        }
+        className="before:!bg-opacity-30"
+      />
+      <Content className="flex gap-24">
+        <FiltersList props={props} />
+        <ProductsList products={products} />
+      </Content>
     </Content>
   );
 };
