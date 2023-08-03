@@ -30,10 +30,10 @@ const ShopPage: React.FC<ShopPageProps> = async ({ params: { shopId } }) => {
         }
         className="before:!bg-opacity-30"
       />
-      <Content className="flex gap-24">
+      <div className="flex gap-24 py-12">
         <FiltersList props={props} />
         <ProductsList products={products} />
-      </Content>
+      </div>
     </Content>
   );
 };
