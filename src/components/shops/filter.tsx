@@ -26,10 +26,7 @@ const Filter: React.FC<FilterProps> = ({
   const selectedKey = currentQuery[key] as string;
   const [active, setActive] = useState<string[]>(selectedKey?.split(',') ?? []);
 
-  const onFilterChange = (value: string, range?: 'min' | 'max') => {
-    const suffix = range ? `_${range}` : '';
-    const newKey = suffix ? `${key}${suffix}` : key;
-
+  const onFilterChange = (value: string) => {
     if (type == PropertyType.FixedValues) {
       let newActive = active;
       if (active.includes(value.toLowerCase())) {
@@ -39,11 +36,11 @@ const Filter: React.FC<FilterProps> = ({
         newActive = [...active, value.toLowerCase()];
         setActive(newActive);
       }
-      onChange(newKey, newActive.join(','));
+      onChange(key, newActive.join(','));
       return;
     }
 
-    onChange(newKey, value.toLowerCase());
+    onChange(key, value.toLowerCase());
   };
 
   if (type == PropertyType.FixedValues) {
@@ -76,17 +73,9 @@ const Filter: React.FC<FilterProps> = ({
           type="number"
           className="border border-neutral p-2 rounded-lg bg-transparent"
           step={type == PropertyType.Decimal ? '0.01' : '1'}
-          placeholder="Min"
-          defaultValue={(currentQuery[`${key}_min`] as number) ?? 0}
-          onChange={(e) => onFilterChange(e.target.value, 'min')}
-        />
-        <Input
-          type="number"
-          className="border border-neutral p-2 rounded-lg bg-transparent"
-          step={type == PropertyType.Decimal ? '0.01' : '1'}
-          placeholder="Max"
-          defaultValue={(currentQuery[`${key}_max`] as number) ?? 0}
-          onChange={(e) => onFilterChange(e.target.value, 'max')}
+          placeholder="Your value here"
+          defaultValue={(currentQuery[key] as number) ?? 0}
+          onChange={(e) => onFilterChange(e.target.value)}
         />
       </div>
     );
@@ -98,7 +87,7 @@ const Filter: React.FC<FilterProps> = ({
         type="text"
         className="border border-neutral p-2 rounded-lg bg-transparent"
         placeholder="Your value here"
-        defaultValue={(currentQuery[`${key}`] as string) ?? ''}
+        defaultValue={(currentQuery[key] as string) ?? ''}
         onBlur={(e) => onFilterChange(e.target.value)}
       />
     </div>
