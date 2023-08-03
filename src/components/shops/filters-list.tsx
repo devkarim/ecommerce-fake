@@ -1,15 +1,19 @@
+import qs from 'query-string';
+
 import { Property } from '@/generated/client';
 
 import Filter from './filter';
 
 interface FiltersListProps {
   props: Property[];
+  currentQuery: qs.StringifiableRecord;
   onChange: (key: string, value: string) => void;
   onSearch: () => void;
 }
 
 const FiltersList: React.FC<FiltersListProps> = ({
   props,
+  currentQuery,
   onChange,
   onSearch,
 }) => {
@@ -24,6 +28,7 @@ const FiltersList: React.FC<FiltersListProps> = ({
             type={p.type}
             values={p.values}
             onChange={onChange}
+            currentQuery={currentQuery}
           />
         </div>
       ))}

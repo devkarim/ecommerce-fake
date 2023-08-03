@@ -1,7 +1,5 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
-
 import { cls } from '@/lib/utils';
 import { PropertyType } from '@/generated/client';
 
@@ -12,14 +10,20 @@ import { useState } from 'react';
 interface FilterProps {
   name: string;
   type: PropertyType;
-  onChange: (key: string, value: string) => void;
+  currentQuery: qs.StringifiableRecord;
   values?: string[];
+  onChange: (key: string, value: string) => void;
 }
 
-const Filter: React.FC<FilterProps> = ({ name, values, type, onChange }) => {
+const Filter: React.FC<FilterProps> = ({
+  name,
+  type,
+  currentQuery,
+  values,
+  onChange,
+}) => {
   const key = name.toLowerCase();
-  const searchParams = useSearchParams();
-  const selectedKey = searchParams.get(key);
+  const selectedKey = currentQuery[key] as string;
   const [active, setActive] = useState<string[]>(selectedKey?.split(',') ?? []);
 
   const onFilterChange = (value: string, range?: 'min' | 'max') => {
@@ -73,16 +77,16 @@ const Filter: React.FC<FilterProps> = ({ name, values, type, onChange }) => {
           className="border border-neutral p-2 rounded-lg bg-transparent"
           step={type == PropertyType.Decimal ? '0.01' : '1'}
           placeholder="Min"
-          defaultValue={searchParams.get(`${key}_min`) ?? 0}
-          onBlur={(e) => onFilterChange(e.target.value, 'min')}
+          defaultValue={(currentQuery[`${key}_min`] as number) ?? 0}
+          onChange={(e) => onFilterChange(e.target.value, 'min')}
         />
         <Input
           type="number"
           className="border border-neutral p-2 rounded-lg bg-transparent"
           step={type == PropertyType.Decimal ? '0.01' : '1'}
           placeholder="Max"
-          defaultValue={searchParams.get(`${key}_max`) ?? 0}
-          onBlur={(e) => onFilterChange(e.target.value, 'max')}
+          defaultValue={(currentQuery[`${key}_max`] as number) ?? 0}
+          onChange={(e) => onFilterChange(e.target.value, 'max')}
         />
       </div>
     );
@@ -94,7 +98,7 @@ const Filter: React.FC<FilterProps> = ({ name, values, type, onChange }) => {
         type="text"
         className="border border-neutral p-2 rounded-lg bg-transparent"
         placeholder="Your value here"
-        defaultValue={searchParams.get(`${key}`) ?? ''}
+        defaultValue={(currentQuery[`${key}`] as string) ?? ''}
         onBlur={(e) => onFilterChange(e.target.value)}
       />
     </div>

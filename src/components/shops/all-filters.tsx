@@ -2,7 +2,7 @@
 
 import qs from 'query-string';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { Property } from '@/generated/client';
 
@@ -15,7 +15,10 @@ interface AllFiltersProps {
 
 const AllFilters: React.FC<AllFiltersProps> = ({ props }) => {
   const router = useRouter();
-  const [query, setQuery] = useState<qs.StringifiableRecord>({});
+  const searchParams = useSearchParams();
+  const [query, setQuery] = useState<qs.StringifiableRecord>(
+    Object.fromEntries(searchParams.entries())
+  );
 
   const onFiltersChange = (key: string, value: string) => {
     setQuery((q) => {
@@ -41,11 +44,13 @@ const AllFilters: React.FC<AllFiltersProps> = ({ props }) => {
         props={props}
         onChange={onFiltersChange}
         onSearch={onSearch}
+        currentQuery={query}
       />
       <FiltersList
         props={props}
         onChange={onFiltersChange}
         onSearch={onSearch}
+        currentQuery={query}
       />
     </>
   );

@@ -1,5 +1,5 @@
 'use client';
-
+import qs from 'query-string';
 import { useState } from 'react';
 import { FaPlus } from 'react-icons/fa6';
 import { Dialog } from '@headlessui/react';
@@ -9,12 +9,14 @@ import Filter from './filter';
 
 interface MobileFiltersProps {
   props: Property[];
+  currentQuery: qs.StringifiableRecord;
   onChange: (key: string, value: string) => void;
   onSearch: () => void;
 }
 
 const MobileFilters: React.FC<MobileFiltersProps> = ({
   props,
+  currentQuery,
   onChange,
   onSearch,
 }) => {
@@ -45,6 +47,7 @@ const MobileFilters: React.FC<MobileFiltersProps> = ({
                   type={p.type}
                   values={p.values}
                   onChange={onChange}
+                  currentQuery={currentQuery}
                 />
               </div>
             ))}
