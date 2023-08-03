@@ -14,11 +14,17 @@ interface ShopPageProps {
   params: {
     shopId: string;
   };
+  searchParams: {
+    [key: string]: string;
+  };
 }
 
-const ShopPage: React.FC<ShopPageProps> = async ({ params: { shopId } }) => {
+const ShopPage: React.FC<ShopPageProps> = async ({
+  params: { shopId },
+  searchParams,
+}) => {
   const shop = await getShopById(shopId);
-  const products = await getShopProducts(shopId);
+  const products = await getShopProducts(shopId, searchParams);
   const props = await getShopProperties(shopId);
 
   if (!products || !shop || !props) throw new Error('500');

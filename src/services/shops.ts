@@ -46,11 +46,15 @@ export const getShopProperties = async (shopId: string) => {
   return null;
 };
 
-export const getShopProducts = async (shopId: string, page: number = 1) => {
+export const getShopProducts = async (
+  shopId: string,
+  searchParams: { [key: string]: string },
+  page: number = 1
+) => {
   const response = await client.get<ProductsResponse>(
     `/shops/${shopId}/products`,
     {
-      params: { page },
+      params: { page, ...searchParams },
     }
   );
   if (response.data.success) {
