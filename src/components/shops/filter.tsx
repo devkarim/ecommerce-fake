@@ -7,45 +7,39 @@ import { PropertyType } from '@/generated/client';
 
 import Input from '../ui/input';
 import qs from 'query-string';
+import { useState } from 'react';
 
 interface FilterProps {
   name: string;
   type: PropertyType;
+  onChange: (key: string, value: string) => void;
   values?: string[];
 }
 
-const Filter: React.FC<FilterProps> = ({ name, values, type }) => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-
+const Filter: React.FC<FilterProps> = ({ name, values, type, onChange }) => {
   const key = name.toLowerCase();
+  const searchParams = useSearchParams();
   const selectedKey = searchParams.get(key);
+  const [active, setActive] = useState<string[]>(selectedKey?.split(',') ?? []);
 
   const onFilterChange = (value: string, range?: 'min' | 'max') => {
-    const current = qs.parse(searchParams.toString());
     const suffix = range ? `_${range}` : '';
     const newKey = suffix ? `${key}${suffix}` : key;
 
-    const query = {
-      ...current,
-      [newKey]: value.toLowerCase(),
-    };
-
     if (type == PropertyType.FixedValues) {
-      if (current[newKey] == value.toLowerCase()) {
-        query[newKey] = '';
+      let newActive = active;
+      if (active.includes(value.toLowerCase())) {
+        newActive = active.filter((v) => v != value.toLowerCase());
+        setActive(newActive);
+      } else {
+        newActive = [...active, value.toLowerCase()];
+        setActive(newActive);
       }
+      onChange(newKey, newActive.join(','));
+      return;
     }
 
-    const url = qs.stringifyUrl(
-      {
-        url: window.location.href,
-        query,
-      },
-      { skipEmptyString: true }
-    );
-
-    router.push(url);
+    onChange(newKey, value.toLowerCase());
   };
 
   if (type == PropertyType.FixedValues) {
@@ -57,8 +51,9 @@ const Filter: React.FC<FilterProps> = ({ name, values, type }) => {
             className={cls(
               'border border-neutral p-2 rounded-lg cursor-pointer',
               {
-                'bg-accent text-accent-content':
-                  selectedKey?.toLowerCase() == v.toLowerCase(),
+                'bg-accent text-accent-content': active.includes(
+                  v.toLowerCase()
+                ),
               }
             )}
             onClick={() => onFilterChange(v)}
@@ -75,7 +70,7 @@ const Filter: React.FC<FilterProps> = ({ name, values, type }) => {
       <div className="flex flex-col gap-2">
         <Input
           type="number"
-          className="border border-neutral p-2 rounded-lg"
+          className="border border-neutral p-2 rounded-lg bg-transparent"
           step={type == PropertyType.Decimal ? '0.01' : '1'}
           placeholder="Min"
           defaultValue={searchParams.get(`${key}_min`) ?? 0}
@@ -83,7 +78,7 @@ const Filter: React.FC<FilterProps> = ({ name, values, type }) => {
         />
         <Input
           type="number"
-          className="border border-neutral p-2 rounded-lg"
+          className="border border-neutral p-2 rounded-lg bg-transparent"
           step={type == PropertyType.Decimal ? '0.01' : '1'}
           placeholder="Max"
           defaultValue={searchParams.get(`${key}_max`) ?? 0}
@@ -97,7 +92,7 @@ const Filter: React.FC<FilterProps> = ({ name, values, type }) => {
     <div className="flex flex-col gap-2">
       <Input
         type="text"
-        className="border border-neutral p-2 rounded-lg"
+        className="border border-neutral p-2 rounded-lg bg-transparent"
         placeholder="Your value here"
         defaultValue={searchParams.get(`${key}`) ?? ''}
         onBlur={(e) => onFilterChange(e.target.value)}

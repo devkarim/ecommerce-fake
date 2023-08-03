@@ -42,7 +42,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const newPrice = price - price * (discount / 100);
 
   return (
-    <div className="space-y-4">
+    <div className="w-full lg:w-fit space-y-4">
       <Link
         href={`/product/${id}`}
         className="card h-[25rem] w-full lg:w-[21rem] bg-base-100 shadow-xl image-full before:!bg-opacity-30 before:!bg-gray-800 hover:before:!bg-opacity-50 before:transition-colors"

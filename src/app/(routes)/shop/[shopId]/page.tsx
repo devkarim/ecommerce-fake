@@ -1,4 +1,6 @@
+import AllFilters from '@/components/shops/all-filters';
 import FiltersList from '@/components/shops/filters-list';
+import MobileFilters from '@/components/shops/mobile-filters';
 import ProductsList from '@/components/shops/products-list';
 import Content from '@/components/ui/content';
 import HeaderCard from '@/components/ui/header-card';
@@ -30,8 +32,8 @@ const ShopPage: React.FC<ShopPageProps> = async ({ params: { shopId } }) => {
         }
         className="before:!bg-opacity-30"
       />
-      <div className="flex gap-24 py-12">
-        <FiltersList props={props} />
+      <div className="grid grid-row-2 lg:grid-cols-[20%_70%] gap-12 py-12">
+        <AllFilters props={props} />
         <ProductsList products={products} />
       </div>
     </Content>
