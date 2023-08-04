@@ -9,14 +9,14 @@ import FeaturedSection from './components/featured-section';
 
 export default async function Home() {
   const shops = await getFeaturedShops();
-  const products = await getFeaturedProducts();
+  const data = await getFeaturedProducts();
 
   return (
     <Content>
       <ExploreCard />
       <FeatureSection />
       <ShopsSection shops={shops} />
-      <FeaturedSection products={products} />
+      <FeaturedSection products={data.products} />
     </Content>
   );
 }
