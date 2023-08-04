@@ -11,6 +11,10 @@ module.exports = {
         '8xl': '90rem',
         '9xl': '100rem',
       },
+      fontFamily: {
+        sans: ['var(--font-inter)'],
+        serif: ['var(--font-courgette)'],
+      },
     },
   },
   daisyui: {

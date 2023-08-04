@@ -1,11 +1,19 @@
 import './globals.css';
+
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Courgette } from 'next/font/google';
+
 import Navbar from '@/components/navbar';
 import Footer from '@/components/ui/footer';
 import ToastProvider from '@/providers/toast-provider';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+
+const bebas_neue = Courgette({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-courgette',
+});
 
 export const metadata: Metadata = {
   title: 'eCommerce Fake',
@@ -19,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${bebas_neue.variable} ${inter.variable} font-sans`}>
         <ToastProvider />
         <Navbar />
         <div className="min-h-full">{children}</div>
