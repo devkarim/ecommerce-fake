@@ -5,7 +5,7 @@ import { PropertyType } from '@/generated/client';
 
 import Input from '../ui/input';
 import qs from 'query-string';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface FilterProps {
   name: string;
@@ -25,6 +25,10 @@ const Filter: React.FC<FilterProps> = ({
   const key = name.toLowerCase();
   const selectedKey = currentQuery[key] as string;
   const [active, setActive] = useState<string[]>(selectedKey?.split(',') ?? []);
+
+  useEffect(() => {
+    setActive((currentQuery[key] as string)?.split(',') ?? []);
+  }, [key, currentQuery]);
 
   const onFilterChange = (value: string) => {
     if (type == PropertyType.FixedValues) {

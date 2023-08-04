@@ -18,23 +18,29 @@ const FiltersList: React.FC<FiltersListProps> = ({
   onSearch,
 }) => {
   return (
-    <div className="hidden lg:block max-w-xs space-y-12">
-      {props.map((p) => (
-        <div key={p.id}>
-          <p className="font-bold">{p.name}</p>
-          <div className="divider"></div>
-          <Filter
-            name={p.name}
-            type={p.type}
-            values={p.values}
-            onChange={onChange}
-            currentQuery={currentQuery}
-          />
-        </div>
-      ))}
-      <button className="btn btn-neutral w-full" onClick={onSearch}>
-        Search
-      </button>
+    <div className="hidden lg:block max-w-xs space-y-8">
+      {props.length != 0 ? (
+        <>
+          {props.map((p) => (
+            <div key={p.id}>
+              <p className="font-bold">{p.name}</p>
+              <div className="divider"></div>
+              <Filter
+                name={p.name}
+                type={p.type}
+                values={p.values}
+                onChange={onChange}
+                currentQuery={currentQuery}
+              />
+            </div>
+          ))}
+          <button className="btn btn-neutral w-full" onClick={onSearch}>
+            Search
+          </button>
+        </>
+      ) : (
+        <p className="opacity-60 text-center">No filters found.</p>
+      )}
     </div>
   );
 };

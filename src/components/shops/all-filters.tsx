@@ -1,7 +1,7 @@
 'use client';
 
 import qs from 'query-string';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { Property } from '@/generated/client';
@@ -19,6 +19,7 @@ const AllFilters: React.FC<AllFiltersProps> = ({ props }) => {
   const [query, setQuery] = useState<qs.StringifiableRecord>(
     Object.fromEntries(searchParams.entries())
   );
+  const [isOpen, setOpen] = useState(false);
 
   const onFiltersChange = (key: string, value: string) => {
     setQuery((q) => {
@@ -36,11 +37,19 @@ const AllFilters: React.FC<AllFiltersProps> = ({ props }) => {
     );
 
     router.push(url);
+    setOpen(false);
   };
+
+  useEffect(() => {
+    setQuery(Object.fromEntries(searchParams.entries()));
+  }, [searchParams]);
 
   return (
     <>
       <MobileFilters
+        isOpen={isOpen}
+        onClose={() => setOpen(false)}
+        onOpen={() => setOpen(true)}
         props={props}
         onChange={onFiltersChange}
         onSearch={onSearch}
