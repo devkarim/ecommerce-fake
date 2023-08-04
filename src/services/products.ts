@@ -1,18 +1,30 @@
-import { Product } from '@/generated/client';
-
 import { BaseResponse } from '@/types/api';
-import { ProductWithImages } from '@/types/db';
+import { FullProduct } from '@/types/db';
 
 import client from './client';
 
-type ProductsWithImagesResponse = BaseResponse<ProductWithImages[]>;
+export type FullProductsResponse = BaseResponse<{
+  products: FullProduct[];
+  count: number;
+}>;
 
-export const getFeaturedProducts = async () => {
-  const response = await client.get<ProductsWithImagesResponse>(
-    '/products/featured'
+export const getFeaturedProducts = async (page: string = '1') => {
+  const response = await client.get<FullProductsResponse>(
+    '/products/featured',
+    { params: { page } }
   );
   if (response.data.success) {
     return response.data.data;
   }
-  return [];
+  return { products: [], count: 0 };
+};
+
+export const getNewProducts = async (page: string = '1') => {
+  const response = await client.get<FullProductsResponse>('/products/new', {
+    params: { page },
+  });
+  if (response.data.success) {
+    return response.data.data;
+  }
+  return { products: [], count: 0 };
 };
