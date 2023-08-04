@@ -44,10 +44,10 @@ const Footer: React.FC<FooterProps> = async ({}) => {
       <div>
         <span className="footer-title">Company</span>
         <Link href="/about" className="link link-hover">
-          About us
+          About
         </Link>
         <Link href="/contact" className="link link-hover">
-          Contact
+          Contact us
         </Link>
       </div>
     </footer>
