@@ -5,7 +5,7 @@ import Pagination from '../ui/pagination';
 
 interface ProductsListProps {
   products: FullProduct[];
-  count: number;
+  count?: number;
 }
 
 const ProductsList: React.FC<ProductsListProps> = ({ products, count }) => {
@@ -28,7 +28,7 @@ const ProductsList: React.FC<ProductsListProps> = ({ products, count }) => {
           </p>
         )}
       </div>
-      <Pagination count={count} />
+      {count && <Pagination count={count} />}
     </div>
   );
 };

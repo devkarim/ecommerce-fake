@@ -46,8 +46,8 @@ export const getShopProperties = async (shopId: string) => {
 };
 
 export const getShopProducts = async (
-  shopId: string,
-  searchParams: { [key: string]: string },
+  shopId: string | number,
+  searchParams: { [key: string]: string } = {},
   page: string = '1'
 ) => {
   const response = await client.get<FullProductsResponse>(
