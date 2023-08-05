@@ -1,7 +1,7 @@
 import { BaseResponse } from '@/types/api';
 import client from './client';
 
-type CheckoutResponse = BaseResponse<{ url: string }>;
+type CheckoutResponse = BaseResponse<{ url: string; invoiceId: number }>;
 
 const checkout = async (productIds: number[]) => {
   const response = await client.post<CheckoutResponse>(`/checkout`, {

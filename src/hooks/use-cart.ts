@@ -47,7 +47,7 @@ const useCart = create<CartStore>()(
     }),
     {
       name: 'cart-storage',
-      partialize: (state) => ({ products: state.products }),
+      partialize: ({ products }) => ({ products }),
     }
   )
 );

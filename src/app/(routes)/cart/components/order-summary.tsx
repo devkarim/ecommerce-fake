@@ -7,12 +7,14 @@ import Skeleton from '@/components/ui/skeleton';
 import useCart from '@/hooks/use-cart';
 import { currencyFormatter } from '@/lib/utils';
 import checkout from '@/services/checkout';
+import useInvoice from '@/hooks/use-invoice';
 
 interface OrderSummaryProps {}
 
 const OrderSummary: React.FC<OrderSummaryProps> = ({}) => {
   const [isMounted, setIsMounted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const invoice = useInvoice();
   const cache = useCart((state) => state.cache);
   const products = useCart((state) => state.products);
 
@@ -31,12 +33,18 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({}) => {
   const onCheckout = async () => {
     setLoading(true);
     try {
-      const url = await checkout(products);
-      if (url) {
+      const data = await checkout(products);
+      if (data) {
+        const { url, invoiceId } = data;
+        invoice.setInvoice(invoiceId);
+        window.location.href = url;
       } else {
+        console.error(data);
         toast.error('Something went wrong');
       }
     } catch (err) {
+      console.error(err);
+      toast.error('Something went wrong');
     } finally {
       setLoading(false);
     }
@@ -57,6 +65,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({}) => {
       <button
         className="btn btn-accent w-full"
         disabled={products.length == 0 || loading}
+        onClick={onCheckout}
       >
         Checkout
       </button>
