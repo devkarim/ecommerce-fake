@@ -1,6 +1,7 @@
 import Content from '@/components/ui/content';
+import OrderSummary from '@/components/cart/order-summary';
+
 import ShoppingCart from './components/shopping-cart';
-import OrderSummary from './components/order-summary';
 
 interface CartPageProps {}
 

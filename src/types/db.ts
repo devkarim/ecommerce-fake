@@ -12,6 +12,13 @@ export type ProductDetails = Prisma.ProductGetPayload<{
   include: { images: true; props: { include: { property: true } }; shop: true };
 }>;
 
+export type ProductPrice = Prisma.ProductGetPayload<{
+  select: {
+    price: true;
+    discount: true;
+  };
+}>;
+
 export type ShopBillboard = Prisma.ShopGetPayload<{
   include: { billboard: true };
 }>;

@@ -6,7 +6,7 @@ interface CheckoutPageProps {}
 
 const CheckoutPage: React.FC<CheckoutPageProps> = ({}) => {
   return (
-    <Content>
+    <Content className="space-y-0">
       <CustomerForm />
     </Content>
   );
