@@ -15,3 +15,7 @@ export type ProductDetails = Prisma.ProductGetPayload<{
 export type ShopBillboard = Prisma.ShopGetPayload<{
   include: { billboard: true };
 }>;
+
+export type FullProperty = Prisma.PropertyValueGetPayload<{
+  include: { property: true };
+}>;
