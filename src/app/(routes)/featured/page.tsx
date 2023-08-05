@@ -8,6 +8,8 @@ interface FeaturedProductsPageProps {
   searchParams: { page: string };
 }
 
+export const revalidate = 0;
+
 const FeaturedProductsPage: React.FC<FeaturedProductsPageProps> = async ({
   searchParams,
 }) => {

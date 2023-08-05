@@ -48,10 +48,9 @@ const Pagination: React.FC<PaginationProps> = ({ count }) => {
         «
       </button>
       {pagesList.map((page) => (
-        <>
+        <div key={page}>
           {page != -1 && (
             <button
-              key={page}
               className={`join-item btn ${
                 page === currentPage ? 'btn-active' : ''
               }`}
@@ -63,7 +62,7 @@ const Pagination: React.FC<PaginationProps> = ({ count }) => {
           {page == -1 && (
             <button className="join-item btn btn-disabled">...</button>
           )}
-        </>
+        </div>
       ))}
       <button
         className="join-item btn"

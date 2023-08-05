@@ -8,6 +8,8 @@ interface NewArrivalsPageProps {
   searchParams: { page: string };
 }
 
+export const revalidate = 0;
+
 const NewArrivalsPage: React.FC<NewArrivalsPageProps> = async ({
   searchParams,
 }) => {

@@ -17,6 +17,8 @@ interface ShopPageProps {
   };
 }
 
+export const revalidate = 60;
+
 const ShopPage: React.FC<ShopPageProps> = async ({
   params: { shopId },
   searchParams,

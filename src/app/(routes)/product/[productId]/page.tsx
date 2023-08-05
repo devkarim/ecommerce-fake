@@ -12,6 +12,8 @@ interface ProductPageProps {
   };
 }
 
+export const revalidate = 60;
+
 const ProductPage: React.FC<ProductPageProps> = async ({ params }) => {
   const product = await getProductById(params.productId);
 
