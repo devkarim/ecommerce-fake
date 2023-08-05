@@ -6,8 +6,8 @@ import Image from 'next/image';
 import { toast } from 'react-hot-toast';
 import { FaCartPlus } from 'react-icons/fa';
 
-import { currencyFormatter } from '@/lib/utils';
 import useCart from '@/hooks/use-cart';
+import DiscountPrice from '../ui/discount-price';
 
 interface ProductCardProps {
   id: number;
@@ -39,8 +39,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   if (!isMounted) return null;
 
-  const newPrice = price - price * (discount / 100);
-
   return (
     <div className="w-full lg:w-fit space-y-4">
       <Link
@@ -66,16 +64,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className="flex justify-between">
         <div className="space-y-2">
           <p className="font-medium">{name}</p>
-          <div className="relative w-fit">
-            <p className="font-bold text-2xl">
-              {currencyFormatter.format(newPrice)}
-            </p>
-            {discount != 0 && (
-              <p className="absolute text-sm top-0 left-full p-1 line-through opacity-60">
-                {currencyFormatter.format(newPrice)}
-              </p>
-            )}
-          </div>
+          <DiscountPrice price={price} discount={discount} />
         </div>
         <button className="btn btn-accent" onClick={onAddToCart}>
           <FaCartPlus className="text-2xl" />
