@@ -11,7 +11,7 @@ interface ProductsListProps {
 const ProductsList: React.FC<ProductsListProps> = ({ products, count }) => {
   return (
     <div className="space-y-12">
-      <div className="flex flex-wrap gap-12 flex-grow">
+      <div className="flex flex-wrap gap-8 flex-grow">
         {products.length != 0 ? (
           products.map((p) => (
             <ProductCard
