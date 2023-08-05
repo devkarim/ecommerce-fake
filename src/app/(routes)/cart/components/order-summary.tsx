@@ -7,6 +7,7 @@ import Skeleton from '@/components/ui/skeleton';
 import useCart from '@/hooks/use-cart';
 import { currencyFormatter } from '@/lib/utils';
 import checkout from '@/services/checkout';
+import { useRouter } from 'next/navigation';
 
 interface OrderSummaryProps {}
 
@@ -15,6 +16,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({}) => {
   const [loading, setLoading] = useState(false);
   const cache = useCart((state) => state.cache);
   const products = useCart((state) => state.products);
+  const router = useRouter();
 
   const totalPrice = useMemo(() => {
     return cache.reduce((acc, product) => {
@@ -31,14 +33,15 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({}) => {
   const onCheckout = async () => {
     setLoading(true);
     try {
-      const data = await checkout(products);
-      if (data) {
-        const { url } = data;
-        window.location.href = url;
-      } else {
-        console.error(data);
-        toast.error('Something went wrong');
-      }
+      // const data = await checkout(products);
+      // if (data) {
+      //   const { url } = data;
+      //   window.location.href = url;
+      // } else {
+      //   console.error(data);
+      //   toast.error('Something went wrong');
+      // }
+      router.push('/checkout');
     } catch (err) {
       console.error(err);
       toast.error('Something went wrong');
