@@ -7,6 +7,8 @@ import ShopsSection from './components/shops-section';
 import FeatureSection from './components/feature-section';
 import FeaturedSection from './components/featured-section';
 
+export const revalidate = 0;
+
 export default async function Home() {
   const shops = await getFeaturedShops();
   const data = await getFeaturedProducts();
