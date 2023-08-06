@@ -11,10 +11,12 @@ import useTotalCartPrice from '@/hooks/use-price';
 interface OrderSummaryProps {
   actionText?: string;
   onSubmit?: (data: any) => void;
+  disabled?: boolean;
 }
 
 const OrderSummary: React.FC<OrderSummaryProps> = ({
   actionText = 'Checkout',
+  disabled = false,
   onSubmit,
 }) => {
   const [isMounted, setIsMounted] = useState(false);
@@ -46,7 +48,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
       <button
         className="btn btn-accent w-full"
         type="submit"
-        disabled={products.length == 0}
+        disabled={products.length == 0 || disabled}
         onClick={onSubmit || onCheckout}
       >
         {actionText}

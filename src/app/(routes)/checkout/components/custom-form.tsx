@@ -149,7 +149,11 @@ const CustomerForm: React.FC<CustomerFormProps> = ({}) => {
           </div>
         </div>
       </form>
-      <OrderSummary actionText="Purchase" onSubmit={handleSubmit(onSubmit)} />
+      <OrderSummary
+        actionText="Purchase"
+        onSubmit={handleSubmit(onSubmit)}
+        disabled={loading}
+      />
     </div>
   );
 };

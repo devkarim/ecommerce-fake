@@ -18,7 +18,7 @@ const DiscountPrice: React.FC<DiscountPriceProps> = ({
       </p>
       {discount != 0 && (
         <p className="absolute text-sm top-0 left-full p-1 line-through opacity-60">
-          {currencyFormatter.format(newPrice)}
+          {currencyFormatter.format(price)}
         </p>
       )}
     </div>
