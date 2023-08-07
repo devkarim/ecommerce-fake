@@ -1,6 +1,6 @@
 import Content from '@/components/ui/content';
 
-import CustomerForm from './components/custom-form';
+import CustomerForm from './components/customer-form';
 
 interface CheckoutPageProps {}
 
