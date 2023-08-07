@@ -28,7 +28,7 @@ const ProductsList: React.FC<ProductsListProps> = ({ products, count }) => {
           </p>
         )}
       </div>
-      {count && <Pagination count={count} />}
+      {!!count && <Pagination count={count} />}
     </div>
   );
 };

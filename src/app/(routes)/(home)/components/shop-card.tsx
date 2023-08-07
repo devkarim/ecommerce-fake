@@ -23,7 +23,7 @@ const ShopCard: React.FC<ShopCardProps> = ({ href, name, imageUrl }) => {
   return (
     <Link
       href={href}
-      className="card h-[26rem] w-full lg:min-w-[18rem] bg-base-100 shadow-xl image-full before:!bg-opacity-60 before:!bg-gray-800 hover:before:!bg-opacity-80 before:transition-colors"
+      className="card h-[30rem] w-full lg:min-w-[18rem] bg-base-100 shadow-xl image-full before:!bg-opacity-60 before:!bg-gray-800 hover:before:!bg-opacity-80 before:transition-colors"
     >
       <figure>
         <Image

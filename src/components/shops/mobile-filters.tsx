@@ -1,10 +1,11 @@
 'use client';
+
 import qs from 'query-string';
-import { useState } from 'react';
-import { FaPlus, FaXmark } from 'react-icons/fa6';
 import { Dialog } from '@headlessui/react';
+import { FaPlus, FaXmark } from 'react-icons/fa6';
 
 import { Property } from '@/generated/client';
+
 import Filter from './filter';
 
 interface MobileFiltersProps {
