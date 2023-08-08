@@ -16,7 +16,7 @@ const bebas_neue = Courgette({
 });
 
 export const metadata: Metadata = {
-  title: 'eCommerce Fake',
+  title: 'Store',
   description: 'An eCommerce fake website.',
 };
 
