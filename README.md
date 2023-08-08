@@ -82,6 +82,10 @@ Use one of the following commands to start the development server:
 - `yarn dev`
 - `pnpm dev`
 
+## See also
+
+- [Admin dashboard repo](https://github.com/devkarim/ecommerce-fake-admin)
+
 ## Author
 
 This project is made by [@devkarim](https://github.com/devkarim).
