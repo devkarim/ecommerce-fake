@@ -53,9 +53,14 @@ const CartItem: React.FC<CartItemProps> = ({ productId }) => {
         <div className="space-y-2">
           <h3 className="text-xl font-medium">{product.name}</h3>
           <DiscountPrice price={+product.price} discount={product.discount} />
-          {product.quantity <= 3 && (
+          {product.quantity <= 3 && !product.isArchived && (
             <h1 className="text-xs text-error font-semibold opacity-80">
               Only {product.quantity} left in stock, order now.
+            </h1>
+          )}
+          {product.isArchived && (
+            <h1 className="text-xs text-error font-semibold opacity-80">
+              This product no longer exists, you cannot order it.
             </h1>
           )}
           <PropsList props={product.props} />
