@@ -50,7 +50,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             src={imageUrl}
             alt={name}
             fill
-            className="rounded-2xl contrast-100 -hue-rotate-15"
+            className="rounded-2xl contrast-100 -hue-rotate-15 object-center"
           />
         </figure>
         <div className="card-body justify-start items-start p-4">
