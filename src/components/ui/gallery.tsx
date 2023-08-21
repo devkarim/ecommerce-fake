@@ -13,7 +13,7 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
   const [activeImage, setActiveImage] = useState(images[0]);
 
   return (
-    <div className="flex-grow basis-1 min-h-[36rem]">
+    <div className="flex-grow basis-1 h-[36rem]">
       <div className="flex flex-col lg:flex-row gap-4 w-full h-full">
         <div className="flex flex-row lg:flex-col gap-4 order-2 lg:order-1">
           {images.map((im) => (
@@ -36,7 +36,7 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
             </div>
           ))}
         </div>
-        <div className="relative flex flex-grow rounded-xl overflow-hidden order-1 lg:order-2">
+        <div className="relative h-[30rem] lg:h-full w-full rounded-xl overflow-hidden order-1 lg:order-2">
           <Image
             src={activeImage}
             alt="gallery-active"
