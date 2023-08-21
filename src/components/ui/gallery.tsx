@@ -36,7 +36,7 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
             </div>
           ))}
         </div>
-        <div className="relative flex h-full w-full rounded-xl overflow-hidden order-1 lg:order-2">
+        <div className="relative flex flex-grow rounded-xl overflow-hidden order-1 lg:order-2">
           <Image
             src={activeImage}
             alt="gallery-active"
