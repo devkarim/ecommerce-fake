@@ -1,5 +1,6 @@
-import Image from 'next/image';
-import { ImageResponse } from 'next/server';
+import { ImageResponse } from 'next/og';
+
+import { APP_URL } from '@/config/constants';
 
 export const size = {
   width: 1200,
@@ -14,9 +15,13 @@ export default function og() {
       <div tw="relative flex w-full h-full items-center justify-center">
         {/* Background */}
         <div tw="absolute flex inset-0">
-          <Image tw="flex flex-1" src="/img/home-card.png" alt="home-card" />
+          <img
+            tw="flex flex-1"
+            src={`${APP_URL}/img/home-card.png`}
+            alt="home-card"
+          />
           {/* Overlay */}
-          <div tw="absolute flex inset-0 bg-black bg-opacity-50 z-10" />
+          <div tw="absolute flex inset-0 bg-black bg-opacity-50" />
         </div>
         <div tw="flex flex-col text-neutral-50">
           {/* Title */}
