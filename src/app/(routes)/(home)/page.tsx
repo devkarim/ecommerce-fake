@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 import Content from '@/components/ui/content';
 import { getFeaturedShops } from '@/services/shops';
 import { getFeaturedProducts } from '@/services/products';
@@ -8,6 +10,10 @@ import FeatureSection from './components/feature-section';
 import FeaturedSection from './components/featured-section';
 
 export const revalidate = 0;
+
+export const metadata: Metadata = {
+  title: 'Home',
+};
 
 export default async function Home() {
   const shops = await getFeaturedShops();
