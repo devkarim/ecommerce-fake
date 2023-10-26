@@ -19,6 +19,24 @@ interface ShopPageProps {
 
 export const revalidate = 60;
 
+export async function generateMetadata({ params }: ShopPageProps) {
+  const shop = await getShopById(params.shopId);
+
+  if (!shop)
+    return {
+      title: 'Not Found',
+      description: 'The page you are looking for does not exist.',
+    };
+
+  return {
+    title: shop.name,
+    description: `Explore the best products at ${shop.name} shop.`,
+    alternates: {
+      canonical: `/shop/${shop.id}`,
+    },
+  };
+}
+
 const ShopPage: React.FC<ShopPageProps> = async ({
   params: { shopId },
   searchParams,
