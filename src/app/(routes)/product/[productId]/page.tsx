@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 import ProductInfo from '@/components/products/product-info';
 import ProductsList from '@/components/shops/products-list';
 import Content from '@/components/ui/content';
@@ -9,6 +11,26 @@ import { getShopProducts } from '@/services/shops';
 interface ProductPageProps {
   params: {
     productId: string;
+  };
+}
+
+export async function generateMetadata({
+  params,
+}: ProductPageProps): Promise<Metadata> {
+  const product = await getProductById(params.productId);
+
+  if (!product)
+    return {
+      title: 'Not Found',
+      description: 'The page you are looking for does not exist.',
+    };
+
+  return {
+    title: `${product.name} - ${product.shop.name}`,
+    description: `Explore the ${product.name} product from ${product.shop.name}.`,
+    alternates: {
+      canonical: `/product/${product.id}`,
+    },
   };
 }
 
