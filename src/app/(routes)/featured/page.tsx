@@ -1,3 +1,5 @@
+import type { Metadata } from 'next';
+
 import ProductsList from '@/components/shops/products-list';
 import Content from '@/components/ui/content';
 import Header from '@/components/ui/header';
@@ -9,6 +11,11 @@ interface FeaturedProductsPageProps {
 }
 
 export const revalidate = 0;
+
+export const metadata: Metadata = {
+  title: 'Featured Products',
+  description: 'Explore the featured products from around the world.',
+};
 
 const FeaturedProductsPage: React.FC<FeaturedProductsPageProps> = async ({
   searchParams,
