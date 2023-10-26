@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 import RemoveCartItems from '@/components/ui/remove-cart-items';
 import { isInvoicePaid } from '@/services/orders';
 
@@ -6,6 +8,14 @@ interface OrderSuccessfulProps {
     invoice_id: string;
   };
 }
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: true,
+    nocache: true,
+  },
+};
 
 const OrderSuccessful: React.FC<OrderSuccessfulProps> = async ({
   searchParams,
