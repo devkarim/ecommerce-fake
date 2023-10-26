@@ -1,5 +1,3 @@
-import qs from 'query-string';
-
 import { BaseResponse } from '@/types/api';
 import { FullProduct, ProductDetails, ProductPrice } from '@/types/db';
 
