@@ -5,6 +5,7 @@ import { Inter, Courgette } from 'next/font/google';
 
 import Navbar from '@/components/navbar';
 import Footer from '@/components/ui/footer';
+import { APP_URL } from '@/config/constants';
 import ToastProvider from '@/providers/toast-provider';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -16,8 +17,16 @@ const bebas_neue = Courgette({
 });
 
 export const metadata: Metadata = {
-  title: 'Store',
-  description: 'An eCommerce fake website.',
+  metadataBase: new URL(APP_URL),
+  title: {
+    default: 'Store',
+    template: '%s | Store',
+  },
+  description: 'Explore the best products from around the world.',
+  verification: {
+    google:
+      'google-site-verification=14WETKbXYtuTBsWM-9UFewRQ1GTtvDlRGVogNc03K9U',
+  },
 };
 
 export default function RootLayout({
