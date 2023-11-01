@@ -22,20 +22,20 @@ To test payment, use [Fawaterk test cards](https://fawaterak-api.readme.io/refer
   - Add products to your shops.
   - Customize your products by changing their info (name, images, price, etc.) or adding associated properties.
   - Pagination when browsing products.
-  - Search easily for products, orders and properties.
-  - Make discounts to your products.
+  - Search easily for products, orders, and properties.
+  - Make discounts on your products.
   - Track orders made by your customers.
   - Concise summary of sales performance and trends with charts.
 - Store
-  - Featured shops & products pages.
-  - New products page where latest products are displayed.
+  - Featured shops and products page.
+  - New products page where the latest products are displayed.
   - Pagination when browsing products.
   - Ability to filter products by properties added to the shop.
   - Product information page where specific product information is displayed.
   - Add products to the cart.
   - Checkout with billing details.
   - Payment gateway using [Fawaterk](https://fawaterk.com).
-  - About & contact us pages.
+  - About & Contact Us pages.
 
 ## How to use
 
